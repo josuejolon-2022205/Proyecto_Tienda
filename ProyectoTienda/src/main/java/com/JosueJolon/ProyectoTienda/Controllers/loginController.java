@@ -65,5 +65,14 @@ public class loginController {
         }
         return "clientes";
     }
+
+    @GetMapping("/ventas")
+    public String mostrarVentas(HttpSession session){
+        if(session.getAttribute("usuarioLogueado") == null){
+            return "redirect:/usuario";
+
+        }
+        return "ventas";
+    }
     
 }
