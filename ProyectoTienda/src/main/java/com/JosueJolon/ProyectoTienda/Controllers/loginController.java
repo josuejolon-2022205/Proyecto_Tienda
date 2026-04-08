@@ -49,5 +49,21 @@ public class loginController {
         }
         return "producto";
     }
+
+    @GetMapping("/detalleVenta")
+    public String mostrarDetalleVenta(HttpSession session){
+        if(session.getAttribute("usuarioLogueado") == null){
+            return "redirect:/usuario";
+        }
+        return "detalleVenta";
+    }
+
+    @GetMapping("/clientes")
+    public String mostrarClientes(HttpSession session){
+        if (session.getAttribute("usuarioLogueado") == null){
+            return "redirect:/usuario";
+        }
+        return "clientes";
+    }
     
 }
