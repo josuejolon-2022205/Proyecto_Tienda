@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/producto.css}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Gestión de Productos</h2>
+
+    <form>
+        <input type="text" placeholder="Nombre del producto" required>
+        <input type="number" placeholder="Precio" required>
+        <input type="number" placeholder="Stock" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ejemplo</td>
+                <td>Q 50</td>
+                <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

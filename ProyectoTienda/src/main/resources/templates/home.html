@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProyectoTienda — Inicio</title>
+    <link rel="stylesheet" th:href="@{/home.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-brand">ProyectoTienda</div>
+    <div class="nav-links">
+        <a th:href="@{/producto}">Productos</a>
+        <a th:href="@{/detalleVenta}"><Div></Div>Detalles Venta</a>
+    </div>
+    <div class="nav-user">
+        <span><strong th:text="${usuario}">usuario</strong></span>
+        <a th:href="@{/usuario}" class="btn-logout">Cerrar sesión</a>
+    </div>
+</nav>
+
+<main class="dashboard">
+    <h1>Bienvenido, <span th:text="${usuario}">usuario</span></h1>
+    <p class="subtitulo">Selecciona un módulo para comenzar</p>
+
+    <div class="cards-grid">
+        <a th:href="@{/producto}" class="card-modulo">
+            <span class="card-icono"></span>
+            <h2>Productos</h2>
+            <p>Gestionar inventario y precios</p>
+        </a>
+        <a th:href="@{/detalleVenta}" class="card-modulo">
+            <span class="card-icono"></span>
+            <h2>Detalle Venta</h2>
+            <p>Registrar y administrar clientes</p>
+        </a>
+    </div>
+</main>
+</body>
+</html>

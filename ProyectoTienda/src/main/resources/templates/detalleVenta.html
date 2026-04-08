@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Venta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/detalleVenta.css}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Detalle de Venta</h2>
+
+    <form>
+        <input type="number" placeholder="ID Producto" required>
+        <input type="number" placeholder="Cantidad" required>
+        <input type="number" placeholder="Precio Unitario" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ejemplo</td>
+                <td>2</td>
+                <td>Q 100</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</head>
+</body>
+</html>
