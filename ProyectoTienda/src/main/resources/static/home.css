@@ -27,14 +27,14 @@
         gap:20px; }
 
     .nav-links a { 
-        color:#ddd; 
+        color:white; 
         text-decoration:none; 
         font-size:14px; 
         transition:color .2s; 
     }
 
     .nav-links a:hover { 
-        color:#F39C12; 
+        color:#fff; 
     }
 
     .nav-user { 
@@ -42,10 +42,10 @@
         align-items:center; 
         gap:15px; 
         font-size:14px; 
-        color:#ccc; }
+        color:white; }
 
     .btn-logout { 
-        background:#BC6C25; 
+        background:#a4c3b2; 
         color:#fff; 
         padding:7px 16px; 
         border-radius:8px; 
@@ -84,11 +84,11 @@
     }
 
     .card-modulo { 
-        background:#DDA15E; 
+        background:#3C6E71; 
         border-radius:16px; 
         padding:35px 25px; 
         text-decoration:none; 
-        color:#2C2C2C; 
+        color:#fff; 
         box-shadow:0 4px 20px rgba(0,0,0,.08); 
         border:2px solid transparent; 
         transition:transform .2s, 
@@ -98,7 +98,7 @@
 
     .card-modulo:hover { 
         transform:translateY(-5px); 
-        border-color:#613530; 
+        border-color:#1985a1; 
         box-shadow:0 10px 30px rgba(192,57,43,.15); 
     }
 
@@ -116,11 +116,11 @@
     
     .card-modulo p { 
         font-size:13px; 
-        color:#888; 
+        color:#fff; 
     }
 
     .footer{ 
-        background-color: #606C38;
+        background-color: #353535;
         text-align:center; 
         padding:20px 30px; 
         gap: 10px;
