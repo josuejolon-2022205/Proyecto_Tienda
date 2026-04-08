@@ -3,20 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle Venta</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/detalleVenta.css}">
 </head>
 <body>
 
-<div class="container">
-    <h2>Detalle de Venta</h2>
+<nav class="navbar">
+    <div class="nav-brand">ProyectoTienda</div>
 
-    <form>
-        <input type="number" placeholder="ID Producto" required>
-        <input type="number" placeholder="Cantidad" required>
-        <input type="number" placeholder="Precio Unitario" required>
-        <button type="submit">Agregar</button>
+    <div class="nav-links">
+        <a th:href="@{/producto}">Productos</a>
+        <a th:href="@{/detalleVenta}">Detalles Venta</a>
+        <a th:href="@{/venta}">Ventas</a>
+        <a th:href="@{/usuario}">Usuarios</a>
+        <a th:href="@{/cliente}">Clientes</a>
+    </div>
+
+    <div class="nav-user">
+        <span><strong th:text="${usuario}">usuario</strong></span>
+        <a th:href="@{/usuario}" class="btn-logout">Cerrar sesión</a>
+    </div>
+</nav>
+
+<main class="dashboard">
+
+    <h1>Detalle de Venta</h1>
+    <p class="subtitulo">Gestiona los productos dentro de una venta</p>
+
+    <form class="form-horizontal">
+        <input type="text" placeholder="ID Producto" required>
+        <input type="text" placeholder="Cantidad" required>
+        <input type="text" placeholder="Precio Unitario" required>
     </form>
+
+    <div class="acciones">
+        <button class="btn agregar">Agregar</button>
+        <button class="btn editar">Editar</button>
+        <button class="btn buscar">Buscar</button>
+        <button class="btn eliminar">Eliminar</button>
+        <button class="btn limpiar">Limpiar</button>
+    </div>
 
     <table>
         <thead>
@@ -27,6 +55,7 @@
                 <th>Total</th>
             </tr>
         </thead>
+
         <tbody>
             <tr>
                 <td>1</td>
@@ -35,8 +64,16 @@
                 <td>Q 100</td>
             </tr>
         </tbody>
+
+        
+
     </table>
-</div>
-</head>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 ProyectoTienda. Todos los derechos reservados.</p>
+</footer>
+
 </body>
 </html>
