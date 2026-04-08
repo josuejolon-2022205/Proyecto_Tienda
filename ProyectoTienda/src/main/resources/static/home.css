@@ -2,38 +2,132 @@
 
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
 
-    body { background:#FDF8F3; min-height:100vh; }
+    body { 
+    background:#ffffff; 
+    min-height:100vh; 
+    }
 
-    .navbar { background:#2C2C2C; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:14px 30px; gap:20px; flex-wrap:wrap; }
+    .navbar { 
+    background:#606C38; 
+    color:#fff; 
+    display:flex; 
+    align-items:center; 
+    justify-content:space-between; 
+    padding:30px 30px; 
+    gap:20px; 
+    flex-wrap:wrap; }
 
-    .nav-brand { font-size:18px; font-weight:700; color:#F39C12; }
+    .nav-brand { 
+    font-size:18px; 
+    font-weight:700; 
+    color:#DDA15E; }
 
-    .nav-links { display:flex; gap:20px; }
+    .nav-links { 
+        display:flex; 
+        gap:20px; }
 
-    .nav-links a { color:#ddd; text-decoration:none; font-size:14px; transition:color .2s; }
+    .nav-links a { 
+        color:#ddd; 
+        text-decoration:none; 
+        font-size:14px; 
+        transition:color .2s; 
+    }
 
-    .nav-links a:hover { color:#F39C12; }
+    .nav-links a:hover { 
+        color:#F39C12; 
+    }
 
-    .nav-user { display:flex; align-items:center; gap:15px; font-size:14px; color:#ccc; }
+    .nav-user { 
+        display:flex; 
+        align-items:center; 
+        gap:15px; 
+        font-size:14px; 
+        color:#ccc; }
 
-    .btn-logout { background:#C0392B; color:#fff; padding:7px 16px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; transition:background .2s; }
+    .btn-logout { 
+        background:#BC6C25; 
+        color:#fff; 
+        padding:7px 16px; 
+        border-radius:8px; 
+        text-decoration:none; 
+        font-size:13px; 
+        font-weight:600; 
+        transition:background .2s; 
+    }
 
-    .btn-logout:hover { background:#922B21; }
+    .btn-logout:hover { 
+        background:#3345a8; 
+    }
 
-    .dashboard { max-width:900px; margin:60px auto; padding:0 20px; text-align:center; }
+    .dashboard { 
+        max-width:900px; 
+        margin:60px auto; 
+        padding:0 20px; 
+        text-align:center; 
+    }
 
-    .dashboard h1 { font-size:28px; color:#2C2C2C; margin-bottom:8px; }
+    .dashboard h1 { 
+        font-size:28px; 
+        color:#2C2C2C; 
+        margin-bottom:8px; 
+    }
 
-    .subtitulo { color:#888; margin-bottom:40px; font-size:15px; }
+    .subtitulo { 
+        color:#888; 
+        margin-bottom:40px;
+        font-size:15px; 
+    }
 
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:25px; }
+    .cards-grid { 
+        display:grid; 
+        grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:25px; 
+    }
 
-    .card-modulo { background:#fff; border-radius:16px; padding:35px 25px; text-decoration:none; color:#2C2C2C; box-shadow:0 4px 20px rgba(0,0,0,.08); border:2px solid transparent; transition:transform .2s, border-color .2s, box-shadow .2s; }
+    .card-modulo { 
+        background:#DDA15E; 
+        border-radius:16px; 
+        padding:35px 25px; 
+        text-decoration:none; 
+        color:#2C2C2C; 
+        box-shadow:0 4px 20px rgba(0,0,0,.08); 
+        border:2px solid transparent; 
+        transition:transform .2s, 
+        border-color .2s, 
+        box-shadow .2s; 
+    }
 
-    .card-modulo:hover { transform:translateY(-5px); border-color:#C0392B; box-shadow:0 10px 30px rgba(192,57,43,.15); }
+    .card-modulo:hover { 
+        transform:translateY(-5px); 
+        border-color:#613530; 
+        box-shadow:0 10px 30px rgba(192,57,43,.15); 
+    }
 
-    .card-icono { font-size:48px; display:block; margin-bottom:15px; }
+    .card-icono { 
+        font-size:48px; 
+        display:block; 
+        margin-bottom:15px; 
+    }
 
-    .card-modulo h2 { font-size:18px; font-weight:600; margin-bottom:8px; }
+    .card-modulo h2 { 
+        font-size:18px; 
+        font-weight:600; 
+        margin-bottom:8px;
+     }
     
-    .card-modulo p { font-size:13px; color:#888; }
+    .card-modulo p { 
+        font-size:13px; 
+        color:#888; 
+    }
+
+    .footer{ 
+        background-color: #606C38;
+        text-align:center; 
+        padding:20px 30px; 
+        gap: 10px;
+        color:#f0f0f0; 
+        font-size:13px; 
+    }
+
+    main { 
+        flex:1; 
+    }
