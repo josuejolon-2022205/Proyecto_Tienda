@@ -1,63 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProyectoTienda — Inicio</title>
-    <link rel="stylesheet" th:href="@{/home.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiendita Inicio</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <link rel="stylesheet" th:href="@{/home.css}">
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-brand">ProyectoTienda</div>
-    <div class="nav-links">
-        <a th:href="@{/producto}">Productos</a>
-        <a th:href="@{/detalleVenta}"><Div></Div>Detalles Venta</a>
-    </div>
-    <div class="nav-user">
-        <span><strong th:text="${usuario}">usuario</strong></span>
-        <a th:href="@{/usuario}" class="btn-logout">Cerrar sesión</a>
-    </div>
+  <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
+
+  <div class="nav-links">
+    <a th:href="@{/producto}" class="active">Productos</a>
+    <a th:href="@{/cliente}">Clientes</a>
+    <a th:href="@{/venta}">Ventas</a>
+    <a th:href="@{/detalleVenta}">Detalle Venta</a>
+    <a th:href="@{/usuario}">Usuarios</a>
+  </div>
+
+  <div class="nav-user">
+    <span><strong th:text="${usuario}"></strong></span>
+    <a th:href="@{/logout}" class="btn-logout">Salir</a>
+  </div>
 </nav>
 
-<main class="dashboard">
-    <h1>Bienvenido, <span th:text="${usuario}">usuario</span></h1>
-    <p class="subtitulo">Selecciona un módulo para comenzar</p>
+<div class="home-main">
+  <h1>Bienvenido, <span th:text="${usuario}"></span></h1>
 
-    <div class="cards-grid">
-        <a th:href="@{/producto}" class="card-modulo">
-            <span class="card-icono"></span>
-            <h2>Productos</h2>
-            <p>Gestionar inventario y precios</p>
-        </a>
-        <a th:href="@{/detalleVenta}" class="card-modulo">
-            <span class="card-icono"></span>
-            <h2>Detalle Venta</h2>
-            <p>Registrar y administrar clientes</p>
-        </a>
+  <div class="cards-grid">
 
-        <a th:href="@{/usuario}" class="card-modulo">
-            <span class="card-icono"></span>
-            <h2>Usuarios</h2>
-            <p>Gestionar cuentas y permisos</p>
-        </a>
+    <a th:href="@{/producto}" class="card-modulo">
+      <div class="card-icon"></div>
+      <h2>Productos</h2>
+      <p>Gestiona el inventario, precios y stock disponible</p>
+      <span class="card-arrow">→</span>
+    </a>
 
-        <a th:href="@{/venta}" class="card-modulo">
-            <span class="card-icono"></span>
-            <h2>Ventas</h2>
-            <p>Registrar y administrar ventas</p>
-        </a>
+    <a th:href="@{/cliente}" class="card-modulo">
+      <div class="card-icon"></div>
+      <h2>Clientes</h2>
+      <p>Administra la base de clientes registrados</p>
+      <span class="card-arrow">→</span>
+    </a>
 
-        <a th:href="@{/cliente}" class="card-modulo">
-            <span class="card-icono"></span>
-            <h2>Clientes</h2>
-            <p>Registrar y administrar clientes</p>
-        </a>
-    </div>
-</main>
+    <a th:href="@{/venta}" class="card-modulo">
+      <div class="card-icon"></div>
+      <h2>Ventas</h2>
+      <p>Registra y consulta las ventas realizadas</p>
+      <span class="card-arrow">→</span>
+    </a>
 
-    <footer class="footer">
-        <p>&copy; 2026 ProyectoTienda. Todos los derechos reservados.</p>
-    </footer>
+    <a th:href="@{/detalleVenta}" class="card-modulo">
+      <div class="card-icon"></div>
+      <h2>Detalle de Venta</h2>
+      <p>Revisa los productos incluidos en cada venta</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a th:href="@{/usuario}" class="card-modulo">
+      <div class="card-icon"></div>
+      <h2>Usuarios</h2>
+      <p>Gestiona cuentas, roles y permisos del sistema</p>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+
+<footer>
+  &copy; 2026 <strong>Tiendita</strong>
+</footer>
+
 </body>
 </html>
