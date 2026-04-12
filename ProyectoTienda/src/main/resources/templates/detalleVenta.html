@@ -1,92 +1,123 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Detalle Venta</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/detalleVenta.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Venta — Tiendita</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
 
+
 <nav class="navbar">
-    <div class="nav-brand">ProyectoTienda</div>
+  <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
 
-    <div class="nav-links">
-        <a th:href="@{/producto}">Productos</a>
-        <a th:href="@{/detalleVenta}">Detalles Venta</a>
-        <a th:href="@{/venta}">Ventas</a>
-        <a th:href="@{/usuario}">Usuarios</a>
-        <a th:href="@{/cliente}">Clientes</a>
-    </div>
+  <div class="nav-links">
+    <a th:href="@{/producto}">Productos</a>
+    <a th:href="@{/cliente}">Clientes</a>
+    <a th:href="@{/venta}">Ventas</a>
+    <a th:href="@{/detalleVenta}" class="active">Detalle Venta</a>
+    <a th:href="@{/usuario}">Usuarios</a>
+  </div>
 
-    <div class="nav-user">
-        <span><strong th:text="${usuario}">usuario</strong></span>
-        <a th:href="@{/usuario}" class="btn-logout">Cerrar sesión</a>
-    </div>
+  <div class="nav-user">
+    <a th:href="@{/home}" class="btn-back">← Inicio</a>
+    <a th:href="@{/logout}" class="btn-logout">Salir</a>
+  </div>
 </nav>
 
-<main class="dashboard">
 
+<main>
+  <div class="page-header">
     <h1>Detalle de Venta</h1>
-    <p class="subtitulo">Gestiona los productos dentro de una venta</p>
+    <p>Gestiona los productos incluidos en cada venta registrada</p>
+  </div>
 
-    <form class="form-horizontal">
-        <input type="text" placeholder="ID Producto" required>
-        <input type="text" placeholder="Cantidad" required>
-        <input type="text" placeholder="Precio Unitario" required>
-    </form>
 
-    <div class="acciones">
-        <button class="btn agregar">Agregar</button>
-        <button class="btn editar">Editar</button>
-        <button class="btn buscar">Buscar</button>
-        <button class="btn eliminar">Eliminar</button>
-        <button class="btn limpiar">Limpiar</button>
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Código Detalle</label>
+        <input type="text" id="codigo_detalle" placeholder="Autoincrementado" readonly>
+      </div>
+      <div class="form-group">
+        <label>Cód. Venta</label>
+        <input type="text" id="ventas_codigo_venta" placeholder="Ej. 1">
+      </div>
+      <div class="form-group">
+        <label>Cód. Producto</label>
+        <input type="text" id="productos_codigo_producto" placeholder="Ej. 3">
+      </div>
+      <div class="form-group">
+        <label>Cantidad</label>
+        <input type="text" id="cantidad" placeholder="Ej. 2">
+      </div>
+      <div class="form-group">
+        <label>Precio Unitario (Q)</label>
+        <input type="text" id="precio_unitario" placeholder="Ej. 150.00">
+      </div>
+      <div class="form-group">
+        <label>Subtotal (Q)</label>
+        <input type="text" id="subtotal" placeholder="Autocalculado" readonly>
+      </div>
     </div>
+  </div>
 
+
+  <div class="acciones">
+    <button class="btn agregar">Agregar</button>
+    <button class="btn editar">Editar</button>
+    <button class="btn buscar">Buscar</button>
+    <button class="btn eliminar">Eliminar</button>
+    <button class="btn limpiar">Limpiar</button>
+  </div>
+
+
+  <div class="table-wrapper">
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-            </tr>
-        </thead>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cód. Venta</th>
+          <th>Cód. Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unit.</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
 
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Ejemplo</td>
-                <td>2</td>
-                <td>Q 100</td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>Ejemplo 2</td>
-                <td>1</td>
-                <td>Q 50</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>Ejemplo 3</td>
-                <td>3</td>
-                <td>Q 150</td>
-            </tr>
-        </tbody>
-
-
-
+        <tr class="demo-row">
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>Q 4,500.00</td>
+          <td>Q 4,500.00</td>
+        </tr>
+        <tr class="demo-row">
+          <td>2</td>
+          <td>1</td>
+          <td>2</td>
+          <td>1</td>
+          <td>Q 150.00</td>
+          <td>Q 150.00</td>
+        </tr>
+        <tr class="demo-row">
+          <td>3</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>Q 150.00</td>
+          <td>Q 300.00</td>
+        </tr>
+      </tbody>
     </table>
-
+  </div>
 </main>
 
-<footer class="footer">
-    <p>&copy; 2026 ProyectoTienda. Todos los derechos reservados.</p>
+<footer>
+  &copy; 2026 <strong>Tiendita</strong>
 </footer>
 
 </body>
