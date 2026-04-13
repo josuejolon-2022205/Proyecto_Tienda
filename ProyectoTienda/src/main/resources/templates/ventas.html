@@ -1,16 +1,125 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventas — Tiendita</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-    <div class="dashboard">
 
+
+<nav class="navbar">
+  <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
+
+  <div class="nav-links">
+    <a th:href="@{/producto}">Productos</a>
+    <a th:href="@{/cliente}">Clientes</a>
+    <a th:href="@{/venta}" class="active">Ventas</a>
+    <a th:href="@{/detalleVenta}">Detalle Venta</a>
+    <a th:href="@{/usuario}">Usuarios</a>
+  </div>
+
+  <div class="nav-user">
+    <a th:href="@{/home}" class="btn-back">Inicio</a>
+    <a th:href="@{/logim}" class="btn-logout">Salir</a>
+  </div>
+</nav>
+
+
+<main>
+  <div class="page-header">
+    <h1>Gestión de Ventas</h1>
+    <p>Registra, consulta y administra todas las ventas realizadas</p>
+  </div>
+
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Código Venta</label>
+        <input type="text" id="codigo_venta" placeholder="Autogenerado" readonly>
+      </div>
+      <div class="form-group">
+        <label>Fecha de Venta</label>
+        <input type="date" id="fecha_venta">
+      </div>
+      <div class="form-group">
+        <label>Total (Q)</label>
+        <input type="text" id="total" placeholder="Ej. 4650.00">
+      </div>
+      <div class="form-group">
+        <label>DPI Cliente</label>
+        <input type="text" id="clientes_dpi_cliente" placeholder="Ej. 1">
+      </div>
+      <div class="form-group">
+        <label>Código Usuario</label>
+        <input type="text" id="usuarios_codigo_usuario" placeholder="Ej. 2">
+      </div>
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="estado">
+          <option value="1">Activo</option>
+          <option value="0">Anulado</option>
+        </select>
+      </div>
     </div>
+  </div>
+
+  <div class="acciones">
+    <button class="btn agregar">Agregar</button>
+    <button class="btn editar">Editar</button>
+    <button class="btn buscar">Buscar</button>
+    <button class="btn eliminar">Eliminar</button>
+    <button class="btn limpiar">Limpiar</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>DPI Cliente</th>
+          <th>Cód. Usuario</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="demo-row">
+          <td>1</td>
+          <td>2024-01-10</td>
+          <td>Q 4,650.00</td>
+          <td>1</td>
+          <td>1</td>
+          <td><span class="badge badge-active">Activo</span></td>
+        </tr>
+        <tr class="demo-row">
+          <td>2</td>
+          <td>2024-01-15</td>
+          <td>Q 300.00</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span class="badge badge-active">Activo</span></td>
+        </tr>
+        <tr class="demo-row">
+          <td>9</td>
+          <td>2024-03-22</td>
+          <td>Q 3,000.00</td>
+          <td>9</td>
+          <td>9</td>
+          <td><span class="badge badge-inactive">Anulado</span></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 <strong>Tiendita</strong>
+</footer>
+
 </body>
 </html>
