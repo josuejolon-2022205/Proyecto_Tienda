@@ -40,7 +40,7 @@ create table Ventas(
 
 );
 
-create table Detalle_Venta(
+create table detalle_venta(
 	codigo_detalle_venta int primary key not null auto_increment,
     cantidad int,
     precio_unitario decimal(10,2),
@@ -70,16 +70,16 @@ begin
 end $$
 delimiter ;
 
-call sp_AgregarUsuario('admin1','1234','admin1@mail.com','admin',1);
-call sp_AgregarUsuario('user1','1234','user1@mail.com','vendedor',1);
-call sp_AgregarUsuario('user2','1234','user2@mail.com','vendedor',1);
-call sp_AgregarUsuario('user3','1234','user3@mail.com','vendedor',1);
-call sp_AgregarUsuario('user4','1234','user4@mail.com','vendedor',1);
-call sp_AgregarUsuario('user5','1234','user5@mail.com','vendedor',1);
-call sp_AgregarUsuario('user6','1234','user6@mail.com','vendedor',1);
-call sp_AgregarUsuario('user7','1234','user7@mail.com','vendedor',1);
-call sp_AgregarUsuario('user8','1234','user8@mail.com','vendedor',1);
-call sp_AgregarUsuario('user9','1234','user9@mail.com','vendedor',1);
+call sp_AgregarUsuario('admin01',     'Admin@2024',   'admin01@tienda.com',       'Administrador', 1);
+call sp_AgregarUsuario('vendedor01',  'Vend@1234',    'vendedor01@tienda.com',    'Vendedor',      1);
+call sp_AgregarUsuario('vendedor02',  'Vend@5678',    'vendedor02@tienda.com',    'Vendedor',      1);
+call sp_AgregarUsuario('cajero01',    'Caj@1111',     'cajero01@tienda.com',      'Cajero',        1);
+call sp_AgregarUsuario('cajero02',    'Caj@2222',     'cajero02@tienda.com',      'Cajero',        1);
+call sp_AgregarUsuario('supervisor1', 'Sup@3333',     'supervisor1@tienda.com',   'Supervisor',    1);
+call sp_AgregarUsuario('bodeguero01', 'Bod@4444',     'bodeguero01@tienda.com',   'Bodeguero',     1);
+call sp_AgregarUsuario('gerente01',   'Ger@5555',     'gerente01@tienda.com',     'Gerente',       1);
+call sp_AgregarUsuario('vendedor03',  'Vend@9999',    'vendedor03@tienda.com',    'Vendedor',      0);
+call sp_AgregarUsuario('soporte01',   'Sop@7777',     'soporte01@tienda.com',     'Soporte',       1);
 
 
 delimiter $$
@@ -126,20 +126,20 @@ create procedure sp_AgregarCliente(
 )
 begin 
 	insert into Clientes(nombre_cliente, apellido_cliente, direccion, estado)
-    values( p_nombre_cliente, p_apellido_cliente, p_direccion, p_estado);
+    values(p_nombre_cliente, p_apellido_cliente, p_direccion, p_estado);
 end $$
 delimiter ;
-call sp_AgregarCliente('Juan','Perez','Zona 1',1);
-call sp_AgregarCliente('Maria','Lopez','Zona 2',1);
-call sp_AgregarCliente('Carlos','Ramirez','Zona 3',1);
-call sp_AgregarCliente('Ana','Gomez','Zona 4',1);
-call sp_AgregarCliente('Luis','Martinez','Zona 5',1);
-call sp_AgregarCliente('Sofia','Hernandez','Zona 6',1);
-call sp_AgregarCliente('Pedro','Diaz','Zona 7',1);
-call sp_AgregarCliente('Lucia','Morales','Zona 8',1);
-call sp_AgregarCliente('Jose','Castro','Zona 9',1);
-call sp_AgregarCliente('Elena','Vargas','Zona 10',1);
 
+call sp_AgregarCliente('Carlos',     'Mendoza',    'Zona 1, Ciudad de Guatemala',   1);
+call sp_AgregarCliente('María',      'López',      'Zona 10, Ciudad de Guatemala',  1);
+call sp_AgregarCliente('José',       'García',     'Zona 4, Mixco',                 1);
+call sp_AgregarCliente('Ana',        'Hernández',  'Zona 3, Villa Nueva',           1);
+call sp_AgregarCliente('Luis',       'Martínez',   'Zona 7, Ciudad de Guatemala',   1);
+call sp_AgregarCliente('Rosa',       'Pérez',      'Zona 2, Quetzaltenango',        1);
+call sp_AgregarCliente('Pedro',      'Ramírez',    'Zona 5, Escuintla',             1);
+call sp_AgregarCliente('Sofía',      'Torres',     'Zona 6, Antigua Guatemala',     1);
+call sp_AgregarCliente('Fernando',   'Castillo',   'Zona 8, Petapa',                0);
+call sp_AgregarCliente('Gabriela',   'Flores',     'Zona 9, San Juan Sacatepéquez', 1);
 
 delimiter $$
 create procedure sp_EditarCliente(
@@ -188,17 +188,16 @@ begin
 end $$
 delimiter ;
 
-call sp_AgregarProductos('Laptop',4500.00,10,1);
-call sp_AgregarProductos('Mouse',50.00,100,1);
-call sp_AgregarProductos('Teclado',120.00,50,1);
-call sp_AgregarProductos('Monitor',1200.00,20,1);
-call sp_AgregarProductos('Impresora',900.00,15,1);
-call sp_AgregarProductos('USB 32GB',40.00,200,1);
-call sp_AgregarProductos('Disco Duro',600.00,25,1);
-call sp_AgregarProductos('Auriculares',150.00,60,1);
-call sp_AgregarProductos('Webcam',300.00,30,1);
-call sp_AgregarProductos('Silla Gamer',1800.00,10,1);
-
+call sp_AgregarProductos('Laptop HP 15.6"',          4500.00, 20,  1);
+call sp_AgregarProductos('Mouse Inalámbrico Logitech', 150.00, 80,  1);
+call sp_AgregarProductos('Teclado Mecánico Redragon',  350.00, 50,  1);
+call sp_AgregarProductos('Monitor Samsung 24"',       2200.00, 15,  1);
+call sp_AgregarProductos('Memoria USB 64GB Kingston',   90.00, 120, 1);
+call sp_AgregarProductos('Disco Duro Externo 1TB',     650.00, 30,  1);
+call sp_AgregarProductos('Audífonos Sony WH-1000',    1200.00, 25,  1);
+call sp_AgregarProductos('Webcam Logitech C920',       780.00, 18,  1);
+call sp_AgregarProductos('Cable HDMI 3m',               45.00, 200, 1);
+call sp_AgregarProductos('Hub USB 4 Puertos',          120.00, 60,  0);
 
 delimiter $$ 
 create procedure sp_EditarProductos(
@@ -232,149 +231,126 @@ end $$
 delimiter ;
 
 -- ========== Venta ========= --
+
 delimiter $$
 create procedure sp_AgregarVenta(
-    in p_fecha_venta date,
-    in p_total decimal(10,2),
+	in p_fecha_venta date,
+    in p_total decimal (10,2),
     in p_estado int,
     in p_clientes_dpi_cliente int,
-    in p_usuarios_codigo_usuario int
+	in p_usuarios_codigo_usuario int 
 )
 begin
-    insert into Ventas(
-        fecha_venta,
-        total,
-        estado,
-        clientes_dpi_cliente,
-        usuarios_codigo_usuario
-    )
-    values(
-        p_fecha_venta,
-        p_total,
-        p_estado,
-        p_clientes_dpi_cliente,
-        p_usuarios_codigo_usuario
-    );
+	insert into Ventas(fecha_venta, total, estado, clientes_dpi_cliente, usuarios_codigo_usuario)
+    values(p_fecha_venta, p_total, p_estado, p_clientes_dpi_cliente, p_usuarios_codigo_usuario);
+
 end $$
-delimiter ;
-call sp_AgregarVenta('2026-01-01',500.00,1,1,1);
-call sp_AgregarVenta('2026-01-02',1200.00,1,2,2);
-call sp_AgregarVenta('2026-01-03',300.00,1,3,3);
-call sp_AgregarVenta('2026-01-04',750.00,1,4,4);
-call sp_AgregarVenta('2026-01-05',900.00,1,5,5);
-call sp_AgregarVenta('2026-01-06',1500.00,1,6,6);
-call sp_AgregarVenta('2026-01-07',200.00,1,7,7);
-call sp_AgregarVenta('2026-01-08',650.00,1,8,8);
-call sp_AgregarVenta('2026-01-09',1100.00,1,9,9);
-call sp_AgregarVenta('2026-01-10',400.00,1,10,10);
+delimiter ; 
+
+call sp_AgregarVenta('2024-01-10',  4650.00, 1, 1, 1);
+call sp_AgregarVenta('2024-01-15',   300.00, 1, 2, 2);
+call sp_AgregarVenta('2024-01-20',  2550.00, 1, 3, 3);
+call sp_AgregarVenta('2024-02-05',  4500.00, 1, 4, 4);
+call sp_AgregarVenta('2024-02-12',   830.00, 1, 5, 5);
+call sp_AgregarVenta('2024-02-18',  1200.00, 1, 6, 6);
+call sp_AgregarVenta('2024-03-01',  6700.00, 1, 7, 7);
+call sp_AgregarVenta('2024-03-10',   195.00, 1, 8, 8);
+call sp_AgregarVenta('2024-03-22',  3000.00, 0, 9, 9);
+call sp_AgregarVenta('2024-04-01',   780.00, 1, 10, 10);
 
 delimiter $$
 create procedure sp_EditarVenta(
-    in p_codigo_venta int,
+	in p_codigo_venta int,
     in p_fecha_venta date,
-    in p_total decimal(10,2),
+    in p_total decimal (10,2),
     in p_estado int,
     in p_clientes_dpi_cliente int,
     in p_usuarios_codigo_usuario int
 )
 begin
-    update Ventas 
-    set fecha_venta = p_fecha_venta,
-        total = p_total,
-        estado = p_estado,
-        clientes_dpi_cliente = p_clientes_dpi_cliente,
-        usuarios_codigo_usuario = p_usuarios_codigo_usuario
+	update Ventas set fecha_venta = p_fecha_venta, total = p_total, estado = p_estado, clientes_dpi_cliente = p_clientes_dpi_cliente, usuarios_codigo_usuario = p_usuarios_codigo_usuario
     where codigo_venta = p_codigo_venta;
 end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_ListarVentas()
+create procedure sp_ListarVenta()
 begin
-    select * from Ventas order by codigo_venta;
+	select * from Ventas order by codigo_venta;
 end $$
 delimiter ;
 
 delimiter $$
 create procedure sp_EliminarVenta(
-    in p_codigo_venta int
+	in p_codigo_venta int 
+    
 )
 begin
-    delete from Ventas where codigo_venta = p_codigo_venta;
+	delete from Ventas where codigo_venta = p_codigo_venta;
+
 end $$
 delimiter ;
 
--- ============== DetalleVenta ============== - 
+-- ============ Detalles Venta ============== --
+
 delimiter $$
 create procedure sp_AgregarDetalleVenta(
-    in p_cantidad int,
+	in p_cantidad int,
     in p_precio_unitario decimal(10,2),
-    in p_subtotal decimal(10,2),
+    in p_subtotal decimal (10,2),
     in p_productos_codigo_producto int,
     in p_ventas_codigo_venta int
+
 )
 begin
-    insert into Detalle_Venta(
-        cantidad,
-        precio_unitario,
-        subtotal,
-        productos_codigo_producto,
-        ventas_codigo_venta
-    )
-    values(
-        p_cantidad,
-        p_precio_unitario,
-        p_subtotal,
-        p_productos_codigo_producto,
-        p_ventas_codigo_venta
-    );
+	insert into detalle_venta(cantidad, precio_unitario, subtotal, productos_codigo_producto, ventas_codigo_venta)
+    values(p_cantidad, p_precio_unitario, p_subtotal, p_productos_codigo_producto, p_ventas_codigo_venta);
 end $$
 delimiter ;
-call sp_AgregarDetalleVenta(2,50.00,100.00,2,1);
-call sp_AgregarDetalleVenta(1,4500.00,4500.00,1,2);
-call sp_AgregarDetalleVenta(3,40.00,120.00,6,3);
-call sp_AgregarDetalleVenta(1,1200.00,1200.00,4,4);
-call sp_AgregarDetalleVenta(2,150.00,300.00,8,5);
-call sp_AgregarDetalleVenta(1,900.00,900.00,5,6);
-call sp_AgregarDetalleVenta(4,50.00,200.00,2,7);
-call sp_AgregarDetalleVenta(1,600.00,600.00,7,8);
-call sp_AgregarDetalleVenta(2,300.00,600.00,9,9);
-call sp_AgregarDetalleVenta(1,1800.00,1800.00,10,10);
+
+call sp_AgregarDetalleVenta(1,  4500.00, 4500.00, 1,  1);
+call sp_AgregarDetalleVenta(1,   150.00,  150.00, 2,  1);
+call sp_AgregarDetalleVenta(2,   150.00,  300.00, 2,  2);
+call sp_AgregarDetalleVenta(1,  2200.00, 2200.00, 4,  3);
+call sp_AgregarDetalleVenta(2,   175.00,  350.00, 3,  3);
+call sp_AgregarDetalleVenta(1,  4500.00, 4500.00, 1,  4);
+call sp_AgregarDetalleVenta(1,   780.00,  780.00, 8,  5);
+call sp_AgregarDetalleVenta(1,   650.00,  650.00, 6,  5);
+call sp_AgregarDetalleVenta(1,  1200.00, 1200.00, 7,  6);
+call sp_AgregarDetalleVenta(3,    90.00,  270.00, 5,  7);
 
 delimiter $$
 create procedure sp_EditarDetalleVenta(
-    in p_codigo_detalle_venta int,
+	in p_codigo_detalle_venta int,
     in p_cantidad int,
     in p_precio_unitario decimal(10,2),
-    in p_subtotal decimal(10,2),
+    in p_subtotal decimal (10,2),
     in p_productos_codigo_producto int,
     in p_ventas_codigo_venta int
+    
 )
 begin
-    update Detalle_Venta
-    set cantidad = p_cantidad,
-        precio_unitario = p_precio_unitario,
-        subtotal = p_subtotal,
-        productos_codigo_producto = p_productos_codigo_producto,
-        ventas_codigo_venta = p_ventas_codigo_venta
-    where codigo_detalle_venta = p_codigo_detalle_venta;
+	update detalle_venta set cantidad = p_cantidad, precio_unitario = p_precio_unitario, subtotal = p_subtotal, productos_codigo_producto = p_productos_codigo_producto, ventas_codigo_venta = p_ventas_codigo_venta
+    where codigo_detalle_venta = p_codigo_detalle_venta; 
+
 end $$
 delimiter ;
 
 delimiter $$
 create procedure sp_ListarDetalleVenta()
 begin
-    select * from Detalle_Venta order by codigo_detalle_venta;
+	select * from detalle_venta;
+
 end $$
 delimiter ;
 
 delimiter $$
 create procedure sp_EliminarDetalleVenta(
-    in p_codigo_detalle_venta int
+	in p_codigo_detalle_venta int
 )
 begin
-    delete from Detalle_Venta where codigo_detalle_venta = p_codigo_detalle_venta;
+	delete from detalle_venta where codigo_detalle_venta = p_codigo_detalle_venta;
+
 end $$
 delimiter ;
-
 
