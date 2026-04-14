@@ -83,29 +83,13 @@
           <th>Estado</th>
         </tr>
       </thead>
-      <tbody>
-
-        <tr class="demo-row">
-          <td>1</td>
-          <td>Laptop HP 15.6"</td>
-          <td>Q 4,500.00</td>
-          <td>20</td>
-          <td><span class="badge badge-active">Activo</span></td>
-        </tr>
-        <tr class="demo-row">
-          <td>2</td>
-          <td>Mouse Inalámbrico Logitech</td>
-          <td>Q 150.00</td>
-          <td>80</td>
-          <td><span class="badge badge-active">Activo</span></td>
-        </tr>
-        <tr class="demo-row">
-          <td>10</td>
-          <td>Hub USB 4 Puertos</td>
-          <td>Q 120.00</td>
-          <td>60</td>
-          <td><span class="badge badge-inactive">Inactivo</span></td>
-        </tr>
+      <tbody id="tablaUsuarios">
+        <tr th:each="producto : ${productos}">
+          <td th:text="${producto.codigo_producto}">1</td>
+          <td th:text="${producto.nombre_producto}">Laptop HP 15.6"</td>
+          <td th:text="${producto.precio}">4500.00</td>
+          <td th:text="${producto.stock}">20</td>
+          <td th:text="${producto.estado == 1 ? 'Activo' : 'Inactivo'}">Activo</td>
 
       </tbody>
     </table>
