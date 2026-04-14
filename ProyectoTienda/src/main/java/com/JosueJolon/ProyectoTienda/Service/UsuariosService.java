@@ -7,6 +7,8 @@ import java.util.List;
 public interface UsuariosService {
     List<Usuarios> getAListUsuarios();
     Usuarios getUsuariosById(Integer id);
+    Usuarios login(String usuario, String password);
+    Usuarios registrar(String usuario, String password);
     Usuarios saveUsuarios(Usuarios usuarios) throws RuntimeException;
     Usuarios updateUsuarios(Integer id, Usuarios usuarios);
     void deleteUsuarios(Integer id);
