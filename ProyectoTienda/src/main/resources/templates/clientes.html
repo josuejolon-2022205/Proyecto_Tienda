@@ -8,106 +8,161 @@
 </head>
 <body>
 
+<!-- ===== NAVBAR ===== -->
 <nav class="navbar">
-  <a th:href="@{/home}" class="nav-brand"></a><span>Tiendita</span></a>
+  <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
 
   <div class="nav-links">
     <a th:href="@{/producto}">Productos</a>
-    <a th:href="@{/cliente}" class="active">Clientes</a>
-    <a th:href="@{/venta}">Ventas</a>
+    <a th:href="@{/clientes}" class="active">Clientes</a>
+    <a th:href="@{/ventas}">Ventas</a>
     <a th:href="@{/detalleVenta}">Detalle Venta</a>
-    <a th:href="@{/usuario}">Usuarios</a>
+    <a th:href="@{/usuarios}">Usuarios</a>
   </div>
 
   <div class="nav-user">
-    <a th:href="@{/home}" class="btn-back"> Inicio</a>
-    <a th:href="@{/login}" class="btn-logout">Salir</a>
+    <a th:href="@{/home}"   class="btn-back">← Inicio</a>
+    <a th:href="@{/logout}" class="btn-logout">Salir</a>
   </div>
 </nav>
 
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
 <main>
   <div class="page-header">
     <h1>Gestión de Clientes</h1>
     <p>Administra la base de datos de clientes registrados en el sistema</p>
   </div>
 
-  <div class="form-card">
-    <div class="form-grid">
-      <div class="form-group">
-        <label>DPI / Código</label>
-        <input type="text" id="dpi_cliente" placeholder="Autoincrementado" readonly>
+  <!-- Mensajes flash -->
+  <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
+  <div class="msg-error" th:if="${error}" th:text="${error}"></div>
+
+  <!-- Barra de búsqueda -->
+  <form th:action="@{/clientes/buscarCliente}" method="get" class="buscar-bar">
+    <input type="number" name="id" placeholder="Buscar por ID..." min="1">
+    <button type="submit" class="btn buscar">Buscar</button>
+    <a th:href="@{/clientes}" class="btn limpiar">Limpiar</a>
+  </form>
+
+  <!-- Formulario Crear / Editar -->
+  <div th:with="editando=${clienteForm.dpi_cliente != null}">
+
+    <span class="modo-badge modo-editar" th:if="${editando}">
+      ✏️ Modo Edición — Cliente ID:
+      <span th:text="${clienteForm.dpi_cliente}"></span>
+    </span>
+    <span class="modo-badge modo-crear" th:unless="${editando}">
+      ➕ Modo Creación
+    </span>
+
+    <form th:action="${editando}
+                      ? @{/clientes/actualizarCliente/{id}(id=${clienteForm.dpi_cliente})}
+                      : @{/clientes/guardarCliente}"
+          method="post"
+          th:object="${clienteForm}">
+
+      <div class="form-card">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>ID / DPI</label>
+            <input th:field="*{dpi_cliente}" type="text"
+                   placeholder="Autoincrementado" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Nombre</label>
+            <input th:field="*{nombre_cliente}" type="text"
+                   placeholder="Ej. Carlos">
+            <span class="field-error" th:errors="*{nombre_cliente}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Apellido</label>
+            <input th:field="*{apellido_cliente}" type="text"
+                   placeholder="Ej. Mendoza">
+            <span class="field-error" th:errors="*{apellido_cliente}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Dirección</label>
+            <input th:field="*{direccion}" type="text"
+                   placeholder="Ej. Zona 1, Ciudad de Guatemala">
+            <span class="field-error" th:errors="*{direccion}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Estado</label>
+            <select th:field="*{estado}">
+              <option value="1">Activo</option>
+              <option value="0">Inactivo</option>
+            </select>
+            <span class="field-error" th:errors="*{estado}"></span>
+          </div>
+
+        </div>
       </div>
-      <div class="form-group">
-        <label>Nombre</label>
-        <input type="text" id="nombre_cliente" placeholder="Ej. Carlos">
+
+      <div class="acciones">
+        <button type="submit" class="btn agregar" th:unless="${editando}">Agregar</button>
+        <button type="submit" class="btn editar"  th:if="${editando}">Guardar Cambios</button>
+        <a th:href="@{/clientes}" class="btn limpiar">Limpiar / Cancelar</a>
       </div>
-      <div class="form-group">
-        <label>Apellido</label>
-        <input type="text" id="apellido_cliente" placeholder="Ej. Mendoza">
-      </div>
-      <div class="form-group">
-        <label>Dirección</label>
-        <input type="text" id="direccion" placeholder="Ej. Zona 1, Ciudad de Guatemala">
-      </div>
-      <div class="form-group">
-        <label>Estado</label>
-        <select id="estado">
-          <option value="1">Activo</option>
-          <option value="0">Inactivo</option>
-        </select>
-      </div>
-    </div>
+
+    </form>
   </div>
 
-  <div class="acciones">
-    <button class="btn agregar">Agregar</button>
-    <button class="btn editar">Editar</button>
-    <button class="btn buscar">Buscar</button>
-    <button class="btn eliminar">Eliminar</button>
-    <button class="btn limpiar">Limpiar</button>
-  </div>
-
+  <!-- Tabla de Clientes -->
   <div class="table-wrapper">
     <table>
       <thead>
-        <tr>
-          <th>DPI</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Dirección</th>
-          <th>Estado</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Dirección</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
       </thead>
       <tbody>
-        
-        <tr class="demo-row">
-          <td>1</td>
-          <td>Carlos</td>
-          <td>Mendoza</td>
-          <td>Zona 1, Ciudad de Guatemala</td>
-          <td><span class="badge badge-active">Activo</span></td>
-        </tr>
-        <tr class="demo-row">
-          <td>2</td>
-          <td>María</td>
-          <td>López</td>
-          <td>Zona 10, Ciudad de Guatemala</td>
-          <td><span class="badge badge-active">Activo</span></td>
-        </tr>
-        <tr class="demo-row">
-          <td>9</td>
-          <td>Fernando</td>
-          <td>Castillo</td>
-          <td>Zona 8, Petapa</td>
-          <td><span class="badge badge-inactive">Inactivo</span></td>
-        </tr>
+
+      <tr th:if="${#lists.isEmpty(clientes)}">
+        <td colspan="6" style="text-align:center; color:var(--muted); padding:20px;">
+          No hay clientes registrados.
+        </td>
+      </tr>
+
+      <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.dpi_cliente}"></td>
+        <td th:text="${cliente.nombre_cliente}"></td>
+        <td th:text="${cliente.apellido_cliente}"></td>
+        <td th:text="${cliente.direccion}"></td>
+        <td>
+          <span class="badge badge-active"   th:if="${cliente.estado == 1}">Activo</span>
+          <span class="badge badge-inactive" th:unless="${cliente.estado == 1}">Inactivo</span>
+        </td>
+        <td>
+          <a th:href="@{/clientes/editarCliente/{id}(id=${cliente.dpi_cliente})}"
+             class="btn-sm editar">Editar</a>
+
+          <form th:action="@{/clientes/eliminarCliente/{id}(id=${cliente.dpi_cliente})}"
+                method="post"
+                style="display:inline;"
+                onsubmit="return confirm('¿Seguro que quieres eliminar este cliente?')">
+            <button type="submit" class="btn-sm eliminar">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+
       </tbody>
     </table>
   </div>
+
 </main>
 
 <footer>
-  &copy; 2026 <strong>Tiendita</strong>
+  &copy; 2026 <strong>ProyectoTienda</strong>. Todos los derechos reservados.
 </footer>
 
 </body>
