@@ -11,11 +11,11 @@
 <nav class="navbar">
     <div class="nav-brand">ProyectoTienda</div>
     <div class="nav-links">
-        <a href="producto">Productos</a>
-        <a href="detalleVenta">Detalles Venta</a>
-        <a href="clientes"> Clientes</a>
+        <a th:href="@{/producto}">Productos</a>
+        <a th:href="@{/detalleVenta}">Detalles Venta</a>
+        <a th:href="@{/clientes}"> Clientes</a>
         <a th:href="@{/usuario}"> Usuarios</a>
-        <a href="Ventas"> Ventas</a>
+        <a th:href="@{/ventas}"> Ventas</a>
     </div>
     <div class="nav-user">
 
@@ -50,30 +50,30 @@
     <p class="subtitulo">Selecciona un módulo para comenzar</p>
 
     <div class="cards-grid">
-        <a href="producto" class="card-modulo">
+        <a th:href="@{/producto}" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Productos</h2>
             <p>Gestionar inventario y precios</p>
         </a>
-        <a href="detalleVenta" class="card-modulo">
+        <a th:href="@{/detalleVenta}" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Detalle Venta</h2>
             <p>Registrar y administrar clientes</p>
         </a>
 
-        <a th:href="usuario" class="card-modulo">
+        <a th:href="@{/usuario}" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Usuarios</h2>
             <p>Gestionar cuentas y permisos</p>
         </a>
 
-        <a href="ventas" class="card-modulo">
+        <a th:href="@{/ventas}" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Ventas</h2>
             <p>Registrar y administrar ventas</p>
         </a>
 
-        <a href="clientes" class="card-modulo">
+        <a th:href="@{/clientes}" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Clientes</h2>
             <p>Registrar y administrar clientes</p>
@@ -82,7 +82,7 @@
 </main>
 
 <footer class="footer">
-    <p>&copy; 2026 Tiendita Todos los derechos reservados.</p>
+    <p>&copy; 2026 Tiendita</p>
 </footer>
 </body>
 </html>
