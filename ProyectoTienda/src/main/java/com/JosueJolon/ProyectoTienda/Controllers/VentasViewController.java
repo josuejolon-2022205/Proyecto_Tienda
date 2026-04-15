@@ -9,12 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.concurrent.TransferQueue;
-
 @Controller
 @RequestMapping("/ventas")
 public class VentasViewController {
-    private final VentasService ventasService;
+   private final VentasService ventasService;
 
     public VentasViewController(VentasService ventasService) {
         this.ventasService = ventasService;
@@ -22,7 +20,7 @@ public class VentasViewController {
 
     @GetMapping
     public String listar(Model model){
-        model.addAttribute("venta", ventasService.getAListVentas());
+        model.addAttribute("ventas", ventasService.getAListVentas());
         model.addAttribute("ventaFormu", new Ventas());
         return "ventas";
     }
@@ -30,7 +28,7 @@ public class VentasViewController {
     @PostMapping("/guardarVenta")
     public String guardarVenta(@Valid @ModelAttribute ("ventaFormu") Ventas ventas, Model model, RedirectAttributes redirectAttributes, BindingResult result){
         if(result.hasErrors()){
-            model.addAttribute("venta", ventasService.getAListVentas());
+            model.addAttribute("ventas", ventasService.getAListVentas());
             return "ventas";
         }
         try {
@@ -45,7 +43,7 @@ public class VentasViewController {
     @GetMapping("/editarVenta/{id}")
     public String editarVenta(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
         try {
-            model.addAttribute("venta", ventasService.getAListVentas());
+            model.addAttribute("ventas", ventasService.getAListVentas());
             model.addAttribute("ventasFormu", ventasService.getVentasById(id));
             return "ventas";
         }catch (Exception e){
@@ -69,7 +67,7 @@ public class VentasViewController {
     public String buscarVenta (@RequestParam Integer id, Model model, RedirectAttributes redirectAttributes){
         try {
             Ventas ventas = ventasService.getVentasById(id);
-            model.addAttribute("venta", ventasService.getAListVentas());
+            model.addAttribute("ventas", ventasService.getAListVentas());
             model.addAttribute("ventasFormu", ventas);
             return "ventas";
         } catch (Exception e) {
@@ -94,3 +92,4 @@ public class VentasViewController {
         return "redirect:/ventas";
     }
 }
+
