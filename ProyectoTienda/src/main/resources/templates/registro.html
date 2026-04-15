@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro — Sistema</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/registro.css}">
+</head>
+<body>
+
+<div class="register-container">
+
+    <h2>Crear Cuenta</h2>
+    <p class="subtitulo">Completa los datos para registrarte</p>
+
+    <!-- Mensaje de error -->
+    <div class="msg-error" th:if="${error}" th:text="${error}"></div>
+
+    <!-- Mensaje de éxito (flash desde redirect) -->
+    <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
+
+    <form th:action="@{/registro}" method="post">
+
+        <div class="input-group">
+            <label>Usuario</label>
+            <input type="text" name="username" placeholder="Ej. vendedor01" required maxlength="45">
+        </div>
+
+        <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" name="password" placeholder="••••••••" required maxlength="45">
+        </div>
+
+        <div class="input-group">
+            <label>Correo Electrónico</label>
+            <input type="email" name="email" placeholder="usuario@tienda.com" required maxlength="60">
+        </div>
+
+        <div class="input-group">
+            <label>Rol</label>
+            <select name="rol" required>
+                <option value="">-- Seleccionar Rol --</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Vendedor">Vendedor</option>
+                <option value="Cajero">Cajero</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Bodeguero">Bodeguero</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Soporte">Soporte</option>
+            </select>
+        </div>
+
+        <!-- Estado por defecto activo (1), oculto -->
+        <input type="hidden" name="estado" value="1">
+
+        <button type="submit">Registrarse</button>
+
+    </form>
+
+    <div class="login-link">
+        ¿Ya tienes cuenta? <a th:href="@{/login}">Iniciar Sesión</a>
+    </div>
+
+    <div class="footer-text">© 2026 Sistema</div>
+
+</div>
+
+</body>
+</html>
