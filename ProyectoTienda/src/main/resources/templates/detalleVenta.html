@@ -33,6 +33,32 @@
     <p>Gestiona los productos incluidos en cada venta registrada</p>
   </div>
 
+    <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
+    <div class="msg-error" th:if="${error}" th:text="${error}"></div>
+    <div class="msg-error" th:if="${advertencia}" th:text="${advertencia}"></div>
+
+    <form th:action="@{/detalleVenta/buscarDetalleVenta}" method="get" class="buscar-bar">
+        <input type="number" name="id" placeholder="Buscar por ID..." min="1">
+        <button type="submit" class="btn buscar">Buscar</button>
+        <a th:href="@{/detalleVenta}" class="btn limpiar">Limpiar</a>
+    </form>
+
+    <div th:with="editando=${detallesVentaFormu.codigo_detalle_venta != null}">
+
+        <span class="modo-badge modo-editar" th:if="${editando}">
+            Modo Edición — ID:
+            <span th:text="${detallesVentaFormu.codigo_detalle_venta}"></span>
+        </span>
+
+        <span class="modo-badge modo-crear" th:unless="${editando}">
+            Modo Creación
+        </span>
+
+        <form th:action="${editando}
+            ? @{/detalleVenta/actualizarDetalleVenta/{id}(id=${detallesVentaFormu.codigo_detalle_venta})}
+            : @{/detalleVenta/guardarDetalleVenta}"
+              method="post"
+              th:object="${detallesVentaFormu}">
 
   <div class="form-card">
     <div class="form-grid">
