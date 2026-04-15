@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <nav class="navbar">
   <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
 
@@ -21,45 +20,42 @@
   </div>
 
   <div class="nav-user">
-    <a th:href="@{/home}"   class="btn-back">← Inicio</a>
+    <a th:href="@{/home}"   class="btn-back">Inicio</a>
     <a th:href="@{/logout}" class="btn-logout">Salir</a>
   </div>
 </nav>
 
-<!-- ===== CONTENIDO PRINCIPAL ===== -->
 <main>
   <div class="page-header">
     <h1>Gestión de Clientes</h1>
     <p>Administra la base de datos de clientes registrados en el sistema</p>
   </div>
 
-  <!-- Mensajes flash -->
   <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
   <div class="msg-error" th:if="${error}" th:text="${error}"></div>
 
-  <!-- Barra de búsqueda -->
   <form th:action="@{/clientes/buscarCliente}" method="get" class="buscar-bar">
-    <input type="number" name="id" placeholder="Buscar por ID..." min="1">
+    <input type="number" name="id" placeholder="BuscarID" min="1">
     <button type="submit" class="btn buscar">Buscar</button>
     <a th:href="@{/clientes}" class="btn limpiar">Limpiar</a>
   </form>
 
-  <!-- Formulario Crear / Editar -->
-  <div th:with="editando=${clienteForm.dpi_cliente != null}">
+
+  <div th:with="editando=${clienteFormu.dpi_cliente != null}">
 
     <span class="modo-badge modo-editar" th:if="${editando}">
-      ✏️ Modo Edición — Cliente ID:
-      <span th:text="${clienteForm.dpi_cliente}"></span>
+      Modo Edición — Cliente ID:
+      <span th:text="${clienteFormu.dpi_cliente}"></span>
     </span>
     <span class="modo-badge modo-crear" th:unless="${editando}">
-      ➕ Modo Creación
+      Modo Creación
     </span>
 
     <form th:action="${editando}
-                      ? @{/clientes/actualizarCliente/{id}(id=${clienteForm.dpi_cliente})}
+                      ? @{/clientes/actualizarCliente/{id}(id=${clienteFormu.dpi_cliente})}
                       : @{/clientes/guardarCliente}"
           method="post"
-          th:object="${clienteForm}">
+          th:object="${clienteFormu}">
 
       <div class="form-card">
         <div class="form-grid">
@@ -112,7 +108,6 @@
     </form>
   </div>
 
-  <!-- Tabla de Clientes -->
   <div class="table-wrapper">
     <table>
       <thead>
@@ -126,12 +121,6 @@
       </tr>
       </thead>
       <tbody>
-
-      <tr th:if="${#lists.isEmpty(clientes)}">
-        <td colspan="6" style="text-align:center; color:var(--muted); padding:20px;">
-          No hay clientes registrados.
-        </td>
-      </tr>
 
       <tr th:each="cliente : ${clientes}">
         <td th:text="${cliente.dpi_cliente}"></td>
