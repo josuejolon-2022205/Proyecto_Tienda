@@ -22,7 +22,7 @@ public class DetalleVentaViewController {
         this.detallesVentaService = detallesVentaService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String listarDetalle(Model model){
         List<DetallesVenta> listar = detallesVentaService.getAListDetallesVenta();
         model.addAttribute("detallesVenta", listar);
@@ -91,8 +91,10 @@ public class DetalleVentaViewController {
             detallesVentaService.updateDetallesVenta(id, detallesVenta);
             redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue actualizado");
         } catch (Exception e){
-            return "redirect:/detalleVenta";
+            redirectAttributes.addFlashAttribute("error", "no se pudo actualizar el detalle de la venta");
         }
+        return "redirect:/detalleVenta";
+
     }
 
 
