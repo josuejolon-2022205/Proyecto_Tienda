@@ -1,8 +1,6 @@
 package com.JosueJolon.ProyectoTienda.Controllers;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.JosueJolon.ProyectoTienda.Entity.DetallesVenta;
-import com.JosueJolon.ProyectoTienda.Entity.Productos;
 import com.JosueJolon.ProyectoTienda.Service.DetallesVentaService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/DetallesVenta")
+@RequestMapping("/detalleVenta")
 public class DetalleVentaViewController {
     private final DetallesVentaService detallesVentaService;
 
@@ -80,7 +78,7 @@ public class DetalleVentaViewController {
         }
     }
 
-    @PostMapping("/actualizarDetalleVenta")
+    @PostMapping("/actualizarDetalleVenta/{id}")
     public String actualizarDetalle(@PathVariable Integer id, @Valid @ModelAttribute ("detallesVentaFormu") DetallesVenta detallesVenta, Model model, RedirectAttributes redirectAttributes, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
