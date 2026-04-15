@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
   </div>
 
   <div class="nav-user">
-    <a th:href="@{/home}" class="btn-back">← Inicio</a>
+    <a th:href="@{/home}" class="btn-back">Inicio</a>
     <a th:href="@{/login}" class="btn-logout">Salir</a>
   </div>
 </nav>
@@ -89,32 +89,19 @@
           <th>Subtotal</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tablaDetalleVenta">
+      <tr th:each ="detalleVenta : ${detallesVenta}">
+        <td th:text="${detalleVenta.codigo_detalle_venta}"></td>
+        <td th:text="${detalleVenta.cantidad}"></td>
+        <td th:text="${detalleVenta.precio_unitario}"></td>
+        <td th:text="${detalleVenta.subtotal}"></td>
+        <td th:text="${detalleVenta.productos_codigo_producto}"></td>
+        <td th:text="${detalleVenta.ventas_codigo_venta}"></td>
 
-        <tr class="demo-row">
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>Q 4,500.00</td>
-          <td>Q 4,500.00</td>
-        </tr>
-        <tr class="demo-row">
-          <td>2</td>
-          <td>1</td>
-          <td>2</td>
-          <td>1</td>
-          <td>Q 150.00</td>
-          <td>Q 150.00</td>
-        </tr>
-        <tr class="demo-row">
-          <td>3</td>
-          <td>2</td>
-          <td>2</td>
-          <td>2</td>
-          <td>Q 150.00</td>
-          <td>Q 300.00</td>
-        </tr>
+
+
+      </tr>
+
       </tbody>
     </table>
   </div>
