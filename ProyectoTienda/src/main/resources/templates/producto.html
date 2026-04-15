@@ -11,7 +11,6 @@
 
 <nav class="navbar">
   <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
-
   <div class="nav-links">
     <a th:href="@{/producto}" class="active">Productos</a>
     <a th:href="@{/cliente}">Clientes</a>
@@ -19,13 +18,11 @@
     <a th:href="@{/detalleVenta}">Detalle Venta</a>
     <a th:href="@{/usuario}">Usuarios</a>
   </div>
-
   <div class="nav-user">
     <a th:href="@{/home}" class="btn-back">Inicio</a>
     <a th:href="@{/login}" class="btn-logout">Salir</a>
   </div>
 </nav>
-
 
 <main>
   <div class="page-header">
@@ -33,44 +30,85 @@
     <p>Administra el inventario, precios y disponibilidad de productos</p>
   </div>
 
+  <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
+  <div class="msg-error" th:if="${error}" th:text="${error}"></div>
 
-  <div class="form-card">
-    <div class="form-grid">
-      <div class="form-group">
-        <label>ID Producto</label>
-        <input type="text" id="codigo_producto" placeholder="Autoincrementado" readonly>
+  <form th:action="@{/producto/buscar}" method="get" class="buscar-bar">
+
+    <input type="number" name="id" placeholder="Buscar por ID..." min="1">
+    <button type="submit" class="btn buscar">Buscar</button>
+
+    <a th:href="@{/producto}" class="btn limpiar">Limpiar</a>
+  </form>
+
+  <div th:with="editando=${productoForm.codigo_producto != null}">
+
+    <span class="modo-badge modo-editar" th:if="${editando}">
+      Modo Edición — Producto ID:
+      <span th:text="${productoForm.codigo_producto}"></span>
+    </span>
+    <span class="modo-badge modo-crear" th:unless="${editando}">
+      Modo Creación
+    </span>
+
+    <form th:action="${editando}
+                      ? @{/producto/actualizar/{id}(id=${productoForm.codigo_producto})}
+                      : @{/producto/guardar}"
+          method="post"
+          th:object="${productoForm}">
+
+      <div class="form-card">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>ID Producto</label>
+
+            <input th:field="*{codigo_producto}" type="text"
+                   placeholder="Autoincrementado" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Nombre del Producto</label>
+            <input th:field="*{nombre_producto}" type="text"
+                   placeholder="Ej. Laptop HP 15.6&quot;">
+
+            <span class="field-error" th:errors="*{nombre_producto}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Precio (Q)</label>
+            <input th:field="*{precio}" type="number"
+                   placeholder="Ej. 4500.00" step="0.01" min="0">
+            <span class="field-error" th:errors="*{precio}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Stock</label>
+            <input th:field="*{stock}" type="number"
+                   placeholder="Ej. 20" min="0">
+            <span class="field-error" th:errors="*{stock}"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Estado</label>
+
+            <select th:field="*{estado}">
+              <option value="1">Activo</option>
+              <option value="0">Inactivo</option>
+            </select>
+            <span class="field-error" th:errors="*{estado}"></span>
+          </div>
+
+        </div>
       </div>
-      <div class="form-group">
-        <label>Nombre del Producto</label>
-        <input type="text" id="nombre_producto" placeholder="Ej. Laptop HP 15.6&quot;">
+
+        <button type="submit" class="btn agregar" th:unless="${editando}">Agregar</button>
+        <button type="submit" class="btn editar"  th:if="${editando}">Guardar Cambios</button>
+        <a th:href="@{/producto}" class="btn limpiar">Limpiar / Cancelar</a>
       </div>
-      <div class="form-group">
-        <label>Precio (Q)</label>
-        <input type="text" id="precio" placeholder="Ej. 4500.00">
-      </div>
-      <div class="form-group">
-        <label>Stock</label>
-        <input type="text" id="stock" placeholder="Ej. 20">
-      </div>
-      <div class="form-group">
-        <label>Estado</label>
-        <select id="estado">
-          <option value="1">Activo</option>
-          <option value="0">Inactivo</option>
-        </select>
-      </div>
-    </div>
+
+    </form>
   </div>
-
-
-  <div class="acciones">
-    <button class="btn agregar">Agregar</button>
-    <button class="btn editar">Editar</button>
-    <button class="btn buscar">Buscar</button>
-    <button class="btn eliminar">Eliminar</button>
-    <button class="btn limpiar">Limpiar</button>
-  </div>
-
 
   <div class="table-wrapper">
     <table>
@@ -81,19 +119,48 @@
           <th>Precio</th>
           <th>Stock</th>
           <th>Estado</th>
+          <th>Acciones</th>
         </tr>
       </thead>
-      <tbody id="tablaUsuarios">
+      <tbody>
+
+        <tr th:if="${#lists.isEmpty(productos)}">
+          <td colspan="6" style="text-align:center; color:var(--muted); padding:20px;">
+            No hay productos registrados.
+          </td>
+        </tr>
+
         <tr th:each="producto : ${productos}">
-          <td th:text="${producto.codigo_producto}">1</td>
-          <td th:text="${producto.nombre_producto}">Laptop HP 15.6"</td>
-          <td th:text="${producto.precio}">4500.00</td>
-          <td th:text="${producto.stock}">20</td>
-          <td th:text="${producto.estado == 1 ? 'Activo' : 'Inactivo'}">Activo</td>
+          <td th:text="${producto.codigo_producto}"></td>
+          <td th:text="${producto.nombre_producto}"></td>
+
+          <td th:text="'Q ' + ${#numbers.formatDecimal(producto.precio, 1, 2)}"></td>
+          <td th:text="${producto.stock}"></td>
+          <td>
+
+            <span class="badge badge-active"
+                  th:if="${producto.estado == 1}">Activo</span>
+            <span class="badge badge-inactive"
+                  th:unless="${producto.estado == 1}">Inactivo</span>
+          </td>
+          <td>
+
+            <a th:href="@{/producto/editar/{id}(id=${producto.codigo_producto})}"
+               class="btn-sm editar">Editar</a>
+
+            <form th:action="@{/producto/eliminar/{id}(id=${producto.codigo_producto})}"
+                  method="post"
+                  style="display:inline;"
+                  onsubmit="return confirm('¿Seguro que quieres eliminar este producto?')">
+              <button type="submit" class="btn-sm eliminar">Eliminar</button>
+            </form>
+          </td>
+        </tr>
 
       </tbody>
     </table>
   </div>
+
 </main>
 
 <footer>
