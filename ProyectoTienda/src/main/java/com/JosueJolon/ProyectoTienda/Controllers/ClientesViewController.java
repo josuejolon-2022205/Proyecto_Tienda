@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/Cliente")
+@RequestMapping("/clientes")
 public class ClientesViewController {
     private final ClientesService clientesService;
 
@@ -20,23 +20,24 @@ public class ClientesViewController {
 
     @GetMapping
     public String listar(Model model){
-        model.addAttribute("cliente", clientesService.getAListClientes());
+        model.addAttribute("clientes", clientesService.getAListClientes());
         model.addAttribute("clienteFormu", new Clientes());
         return "clientes";
     }
 
-    @GetMapping("/editarClientes")
+    @GetMapping("/editarCliente/{id}")
     public String guardar(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
         try{
-            model.addAttribute("cliente", clientesService.getAListClientes());
+            model.addAttribute("clientes", clientesService.getAListClientes());
             model.addAttribute("clienteFormu", clientesService.getClientesById(id));
             return "clientes";
         } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "no se encontro el id del cliente");
             return "clientes";
         }
     }
 
-    @PostMapping("/guardarClientes")
+    @PostMapping("/guardarCliente")
     public String guardarClientes(@Valid @ModelAttribute ("clientesFormu") Clientes clientes, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
             model.addAttribute("cliente", clientesService.getAListClientes());
@@ -57,7 +58,7 @@ public class ClientesViewController {
         try {
             Clientes clientes = clientesService.getClientesById(id);
             model.addAttribute("cliente", clientesService.getAListClientes());
-            model.addAttribute("cliente", clientes);
+            model.addAttribute("clienteFormu", clientes);
             return "clientes";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("advertencia", "el id del cliente no existe");
