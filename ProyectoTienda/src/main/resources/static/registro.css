@@ -1,0 +1,102 @@
+.register-container h2 {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 22px;
+}
+ 
+.register-container .subtitulo {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-bottom: 22px;
+}
+ 
+.msg-error {
+    background: rgba(220, 50, 50, 0.25);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+ 
+.msg-exito {
+    background: rgba(50, 200, 100, 0.25);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+ 
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+ 
+.input-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    opacity: 0.85;
+}
+ 
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c2c2c;
+}
+ 
+.input-group input:focus,
+.input-group select:focus {
+    box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+ 
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1d2b63;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    margin-top: 5px;
+}
+ 
+button[type="submit"]:hover {
+    background: #dfffe7;
+}
+ 
+.login-link {
+    margin-top: 18px;
+    font-size: 12px;
+    opacity: 0.85;
+}
+ 
+.login-link a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+}
+ 
+.login-link a:hover {
+    opacity: 0.75;
+}
+ 
+.footer-text {
+    margin-top: 15px;
+    font-size: 11px;
+    opacity: 0.6;
+}
