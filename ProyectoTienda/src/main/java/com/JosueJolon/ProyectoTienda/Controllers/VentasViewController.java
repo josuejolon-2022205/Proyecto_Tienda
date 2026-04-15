@@ -79,7 +79,7 @@ public class VentasViewController {
     }
 
     @PostMapping("/actualizarVentas/{id}")
-    public String actualizarVenta(@PathVariable Integer id, @Valid @RequestParam("ventasFormu") Ventas ventas, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+    public String actualizarVenta(@PathVariable Integer id, @Valid @ModelAttribute("ventasFormu") Ventas ventas, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
             model.addAttribute("ventas", ventasService.getAListVentas());
             model.addAttribute("venta", ventas);
