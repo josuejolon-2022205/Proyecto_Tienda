@@ -1,10 +1,7 @@
 package com.JosueJolon.ProyectoTienda.Controllers;
 
-import com.JosueJolon.ProyectoTienda.Entity.Productos;
-import com.JosueJolon.ProyectoTienda.Entity.Usuarios;
-import com.JosueJolon.ProyectoTienda.Repository.UsuariosRepository;
-import com.JosueJolon.ProyectoTienda.Service.ProductosService;
-import com.JosueJolon.ProyectoTienda.Service.UsuariosService;
+import com.JosueJolon.ProyectoTienda.Entity.*;
+import com.JosueJolon.ProyectoTienda.Service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -19,39 +17,47 @@ import java.util.List;
 public class loginController {
 
     private final UsuariosService usuariosService;
-    private final ProductosService productosService;
 
-    public loginController(UsuariosService usuariosService, ProductosService productosService) {
-
+    public loginController(UsuariosService usuariosService) {
         this.usuariosService = usuariosService;
-        this.productosService = productosService;
     }
 
     @GetMapping("/")
-    public String inicio(){
+    public String inicio() {
         return "redirect:/login";
     }
 
     @GetMapping("/login")
-    public String mostrarLogin(){
+    public String mostrarLogin() {
         return "login";
     }
 
 
     @PostMapping("/login")
-    public String validar(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          Model model) {
+    public String validar(@RequestParam("username") String username, @RequestParam("password") String password, Model model, HttpSession httpSession) {
 
         Usuarios u = usuariosService.login(username, password);
 
         if (u != null) {
+            httpSession.setAttribute("usuarioNombre", u.getUsername());
+            httpSession.setAttribute("usuarioRol", u.getRol());
+            httpSession.setAttribute("usuarioId", u.getCodigo_usuario());
             return "redirect:/home";
         } else {
             model.addAttribute("error", "Credenciales incorrectas");
             return "login";
         }
     }
+
+
+    @GetMapping("/home")
+    public String mostrar(HttpSession session, Model model) {
+        model.addAttribute("username", session.getAttribute("usuarioNombre"));
+        model.addAttribute("rol", session.getAttribute("usuarioRol"));
+
+        return "home";
+    }
+
 
     // REGISTRO
     @GetMapping("/registro")
@@ -60,65 +66,45 @@ public class loginController {
     }
 
     @PostMapping("/registro")
-    public String guardar(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          Model model) {
+    public String guardar(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("rol") String rol, @RequestParam(value = "estado", defaultValue = "1") Integer estado, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Usuarios nuevo = new Usuarios();
+            nuevo.setUsername(username);
+            nuevo.setPassword(password);
+            nuevo.setEmail(email);
+            nuevo.setRol(rol);
+            nuevo.setEstado(estado);
 
-        Usuarios u = usuariosService.login(username, password);
+            usuariosService.saveUsuarios(nuevo);
+            redirectAttributes.addFlashAttribute("exito", "Usuario registrado correctamente. Inicia sesión.");
+            return "redirect:/login";
 
-        if (u == null) {
-            model.addAttribute("error", "Usuario ya existe");
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al registrar: " + e.getMessage());
             return "registro";
         }
+    }
 
+
+    @GetMapping("/logout")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate();
         return "redirect:/login";
     }
 
-    // LISTA
+
     @GetMapping("/lista")
     public String listar(Model model) {
         List<Usuarios> lista = usuariosService.getAListUsuarios();
         model.addAttribute("usuarios", lista);
-        return "usuarios";
+        return "usuario";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable  int id) {
+    public String eliminar(@PathVariable int id) {
         usuariosService.deleteUsuarios(id);
         return "redirect:/lista";
     }
 
-    @GetMapping("/home")
-    public String mostrar(HttpSession session){
-
-        return "home";
-    }
-
-    @GetMapping("/producto")
-    public String mostrarProducto(Model model){
-        List<Productos> listar = productosService.getAListProductos();
-        model.addAttribute( "productos", listar);
-        return "producto";
-    }
-
-    @GetMapping("/detalleVenta")
-    public String mostrarDetalleVenta(HttpSession session){
-        return "detalleVenta";
-    }
-
-    @GetMapping("/clientes")
-    public String mostrarClientes(HttpSession session){
-        return "clientes";
-    }
-
-    @GetMapping("/ventas")
-    public String mostrarVentas(HttpSession session){
-        return "ventas";
-    }
-
-    @GetMapping("/usuario")
-    public String mostrarUsuario(HttpSession session){
-        return "usuario";
-    }
-    
 }
+
