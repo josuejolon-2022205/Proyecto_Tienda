@@ -34,9 +34,9 @@ public class ViewsController {
 
             try {
                 productosService.saveProductos(p);
-                ra.addFlashAttribute("exito", "✅ Producto creado correctamente.");
+                ra.addFlashAttribute("exito", "el producto fue creado.");
             } catch (Exception e) {
-                ra.addFlashAttribute("error", "❌ Error al crear: " + e.getMessage());
+                ra.addFlashAttribute("error", "Error al crear: " + e.getMessage());
             }
 
             return "redirect:/producto";
@@ -48,7 +48,7 @@ public class ViewsController {
                 model.addAttribute("productoForm", productosService.getProductosById(id));
                 return "producto";
             } catch (Exception e) {
-                ra.addFlashAttribute("msg", "❌ Producto no encontrado");
+                ra.addFlashAttribute("msg", "Producto no encontrado");
                 return "producto";
             }
         }
@@ -57,9 +57,9 @@ public class ViewsController {
         public String eliminar(@PathVariable Integer id, RedirectAttributes ra) {
             try {
                 productosService.deleteProductos(id);
-                ra.addFlashAttribute("msg", "✅ Producto eliminado");
+                ra.addFlashAttribute("msg", "Producto eliminado");
             } catch (Exception e) {
-                ra.addFlashAttribute("msg", "❌ Error al eliminar");
+                ra.addFlashAttribute("msg", "Error al eliminar");
             }
             return "redirect:/producto";
         }
@@ -72,7 +72,7 @@ public class ViewsController {
                 model.addAttribute("productoForm", encontrado);
                 return "producto";
             } catch (Exception e) {
-                ra.addFlashAttribute("msg", "❌ Producto con ID " + id + " no existe");
+                ra.addFlashAttribute("msg", "Producto con ese id no existe");
                 return "redirect:/producto";
             }
         }
