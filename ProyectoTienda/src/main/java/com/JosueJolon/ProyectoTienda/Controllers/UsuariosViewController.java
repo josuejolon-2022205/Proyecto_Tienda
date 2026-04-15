@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuariosViewController {
     private final UsuariosService usuariosService;
 
@@ -22,8 +22,8 @@ public class UsuariosViewController {
 
     @GetMapping
     public String listar(Model model){
-        List<Usuarios> list = usuariosService.getAListUsuarios();
-        model.addAttribute("usuario", list);
+        model.addAttribute("usuario", usuariosService.getAListUsuarios());
+        model.addAttribute("usuarioFormu", new Usuarios());
         return "usuario";
     }
 
