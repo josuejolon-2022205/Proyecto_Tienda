@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle de Venta — Tiendita</title>
-  <link rel="stylesheet" th:href="@{/estilos.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Venta — Tiendita</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
 
-
 <nav class="navbar">
-  <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
+    <a th:href="@{/home}" class="nav-brand"><span>Tiendita</span></a>
 
-  <div class="nav-links">
-    <a th:href="@{/producto}">Productos</a>
-    <a th:href="@{/cliente}">Clientes</a>
-    <a th:href="@{/venta}">Ventas</a>
-    <a th:href="@{/detalleVenta}" class="active">Detalle Venta</a>
-    <a th:href="@{/usuario}">Usuarios</a>
-  </div>
+    <div class="nav-links">
+        <a th:href="@{/producto}">Productos</a>
+        <a th:href="@{/cliente}">Clientes</a>
+        <a th:href="@{/venta}">Ventas</a>
+        <a th:href="@{/detalleVenta}" class="active">Detalle Venta</a>
+        <a th:href="@{/usuario}">Usuarios</a>
+    </div>
 
-  <div class="nav-user">
-    <a th:href="@{/home}" class="btn-back">Inicio</a>
-    <a th:href="@{/login}" class="btn-logout">Salir</a>
-  </div>
+    <div class="nav-user">
+        <a th:href="@{/home}" class="btn-back">Inicio</a>
+        <a th:href="@{/login}" class="btn-logout">Salir</a>
+    </div>
 </nav>
 
-
 <main>
-  <div class="page-header">
-    <h1>Detalle de Venta</h1>
-    <p>Gestiona los productos incluidos en cada venta registrada</p>
-  </div>
+
+    <div class="page-header">
+        <h1>Detalle de Venta</h1>
+        <p>Administra los productos incluidos en cada venta</p>
+    </div>
 
     <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
     <div class="msg-error" th:if="${error}" th:text="${error}"></div>
@@ -100,48 +99,70 @@
                 </div>
             </div>
 
+            <button type="submit" class="btn agregar" th:unless="${editando}">
+                Agregar
+            </button>
 
-  <div class="acciones">
-    <button class="btn agregar">Agregar</button>
-    <button class="btn editar">Editar</button>
-    <button class="btn buscar">Buscar</button>
-    <button class="btn eliminar">Eliminar</button>
-    <button class="btn limpiar">Limpiar</button>
-  </div>
+            <button type="submit" class="btn editar" th:if="${editando}">
+                Guardar Cambios
+            </button>
 
+            <a th:href="@{/detalleVenta}" class="btn limpiar">
+                Limpiar / Cancelar
+            </a>
 
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Cód. Venta</th>
-          <th>Cód. Producto</th>
-          <th>Cantidad</th>
-          <th>Precio Unit.</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody id="tablaDetalleVenta">
-      <tr th:each ="detalleVenta : ${detallesVenta}">
-        <td th:text="${detalleVenta.codigo_detalle_venta}"></td>
-        <td th:text="${detalleVenta.cantidad}"></td>
-        <td th:text="${detalleVenta.precio_unitario}"></td>
-        <td th:text="${detalleVenta.subtotal}"></td>
-        <td th:text="${detalleVenta.productos_codigo_producto}"></td>
-        <td th:text="${detalleVenta.ventas_codigo_venta}"></td>
+        </form>
+    </div>
 
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cód. Venta</th>
+                <th>Cód. Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
 
+            <tbody>
 
-      </tr>
+            <tr th:if="${#lists.isEmpty(detallesVenta)}">
+                <td colspan="7" style="text-align:center;">No hay registros</td>
+            </tr>
 
-      </tbody>
-    </table>
-  </div>
+            <tr th:each="d : ${detallesVenta}">
+                <td th:text="${d.codigo_detalle_venta}"></td>
+                <td th:text="${d.ventas_codigo_venta}"></td>
+                <td th:text="${d.productos_codigo_producto}"></td>
+                <td th:text="${d.cantidad}"></td>
+                <td th:text="${d.precio_unitario}"></td>
+                <td th:text="${d.subtotal}"></td>
+
+                <td>
+                    <a th:href="@{/detalleVenta/editarDetalleVenta/{id}(id=${d.codigo_detalle_venta})}"
+                       class="btn-sm editar">Editar</a>
+
+                    <form th:action="@{/detalleVenta/eliminarDetalleVenta/{id}(id=${d.codigo_detalle_venta})}"
+                          method="post"
+                          style="display:inline;"
+                          onsubmit="return confirm('¿Eliminar este registro?')">
+                        <button type="submit" class="btn-sm eliminar">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
 </main>
 
 <footer>
-  &copy; 2026 <strong>Tiendita</strong>
+    &copy; 2026 <strong>ProyectoTienda</strong>
 </footer>
 
 </body>
