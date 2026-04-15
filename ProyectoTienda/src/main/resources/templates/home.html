@@ -14,12 +14,34 @@
         <a href="producto">Productos</a>
         <a href="detalleVenta">Detalles Venta</a>
         <a href="clientes"> Clientes</a>
-        <a href="Usuarios"> Usuarios</a>
+        <a th:href="@{/usuario}"> Usuarios</a>
         <a href="Ventas"> Ventas</a>
     </div>
     <div class="nav-user">
-        <span><strong text="${usuario}">usuario</strong></span>
-        <a href="login.html" class="btn-logout">Cerrar sesión</a>
+
+        <div class="user-info">
+
+            <img th:if="${rol == 'Administrador'}"
+                 th:src="@{/images/admin.jpg}"
+                 class="avatar-foto"
+                 alt="Admin">
+
+            <div th:unless="${rol == 'Administrador'}" class="avatar-icono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     fill="currentColor" width="30" height="30">
+                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4
+                             7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2
+                             v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                </svg>
+            </div>
+
+            <div class="user-details">
+                <span class="user-name" th:text="${username}">usuario</span>
+                <span class="user-rol"  th:text="${rol}">rol</span>
+            </div>
+        </div>
+
+        <a th:href="@{/logout}" class="btn-logout">Cerrar sesión</a>
     </div>
 </nav>
 
@@ -39,7 +61,7 @@
             <p>Registrar y administrar clientes</p>
         </a>
 
-        <a href="usuario" class="card-modulo">
+        <a th:href="usuario" class="card-modulo">
             <span class="card-icono"></span>
             <h2>Usuarios</h2>
             <p>Gestionar cuentas y permisos</p>
