@@ -22,13 +22,13 @@ public class DetalleVentaViewController {
 
     @GetMapping
     public String listarDetalle(Model model){
-        List<DetallesVenta> listar = detallesVentaService.getAListDetallesVenta();
-        model.addAttribute("detallesVenta", listar);
+        model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
+        model.addAttribute("detallesVentaFormu", new DetallesVenta());
         return "detalleVenta";
     }
 
     @PostMapping("/guardarDetalleVenta")
-    public String guardarDetalle(@Valid @ModelAttribute ("detalleVentaFormu")DetallesVenta detallesVenta, BindingResult result, Model model, RedirectAttributes redirectAttributes){
+    public String guardarDetalle(@Valid @ModelAttribute ("detallesVentaFormu")DetallesVenta detallesVenta, BindingResult result, Model model, RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
             model.addAttribute("detallesVenta ", detallesVentaService.getAListDetallesVenta());
             return "detalleVenta";
@@ -94,6 +94,4 @@ public class DetalleVentaViewController {
         return "redirect:/detalleVenta";
 
     }
-
-
 }
