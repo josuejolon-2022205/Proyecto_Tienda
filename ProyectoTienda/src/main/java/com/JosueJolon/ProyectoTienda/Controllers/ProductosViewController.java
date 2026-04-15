@@ -11,10 +11,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/producto")
-public class ViewsController {
+public class ProductosViewController {
         private final ProductosService productosService;
 
-        public ViewsController(ProductosService service) {
+        public ProductosViewController(ProductosService service) {
             this.productosService = service;
         }
 
@@ -87,9 +87,9 @@ public class ViewsController {
             }
             try {
                 productosService.updateProductos(id, p);
-                ra.addFlashAttribute("exito", "✅ Producto actualizado correctamente.");
+                ra.addFlashAttribute("exito", "Producto actualizado correctamente.");
             } catch (Exception e) {
-                ra.addFlashAttribute("error", "❌ Error al actualizar: " + e.getMessage());
+                ra.addFlashAttribute("error", " Error al actualizar: " + e.getMessage());
             }
             return "redirect:/producto";
         }
