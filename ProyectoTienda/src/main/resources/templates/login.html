@@ -13,6 +13,18 @@
 <div class="login-container">
     <h2>Iniciar Sesión</h2>
 
+    <div th:if="${error}"
+         style="background:rgba(220,50,50,0.25);color:#fff;border-radius:10px;
+                padding:10px;margin-bottom:15px;font-size:13px;"
+         th:text="${error}">
+    </div>
+
+    <div th:if="${exito}"
+         style="background:rgba(50,200,100,0.25);color:#fff;border-radius:10px;
+                padding:10px;margin-bottom:15px;font-size:13px;"
+         th:text="${exito}">
+    </div>
+
     <form th:action="@{/login}" method="post">
 
         <div class="input-group">
@@ -27,9 +39,14 @@
 
     </form>
 
-    <div class="footer-text">
-        2026 Sistema
+    <div style="margin-top:14px; font-size:12px; opacity:0.85;">
+        ¿No tienes cuenta?
+        <a th:href="@{/registro}" style="color:#fff; font-weight:600; text-decoration:underline;">
+            Regístrate
+        </a>
     </div>
+
+    <div class="footer-text">© 2026 Sistema</div>
 </div>
 
 </body>
