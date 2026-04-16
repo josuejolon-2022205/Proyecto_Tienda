@@ -26,71 +26,48 @@ public class ProductosViewController {
         }
 
         @PostMapping("/guardar")
-        public String guardar(@Valid @ModelAttribute("productoForm") Productos p, BindingResult result, Model model, RedirectAttributes ra) {
+        public String guardar(@Valid @ModelAttribute("productoForm") Productos p, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
             if (result.hasErrors()) {
                 model.addAttribute("productos", productosService.getAListProductos());
                 return "producto";
             }
-
-            try {
-                productosService.saveProductos(p);
-                ra.addFlashAttribute("exito", "el producto fue creado.");
-            } catch (Exception e) {
-                ra.addFlashAttribute("error", "Error al crear: " + e.getMessage());
-            }
-
+            productosService.saveProductos(p);
+            redirectAttributes.addFlashAttribute("exito", "el producto fue creado.");
             return "redirect:/producto";
         }
         @GetMapping("/editar/{id}")
-        public String editar(@PathVariable Integer id, Model model, RedirectAttributes ra) {
-            try {
-                model.addAttribute("productos", productosService.getAListProductos());
-                model.addAttribute("productoForm", productosService.getProductosById(id));
-                return "producto";
-            } catch (Exception e) {
-                ra.addFlashAttribute("msg", "Producto no encontrado");
-                return "producto";
-            }
+        public String editar(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
+            model.addAttribute("productos", productosService.getAListProductos());
+            model.addAttribute("productoForm", productosService.getProductosById(id));
+            return "producto";
+
         }
 
         @PostMapping("/eliminar/{id}")
-        public String eliminar(@PathVariable Integer id, RedirectAttributes ra) {
-            try {
-                productosService.deleteProductos(id);
-                ra.addFlashAttribute("msg", "Producto eliminado");
-            } catch (Exception e) {
-                ra.addFlashAttribute("msg", "Error al eliminar");
-            }
+        public String eliminar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+            productosService.deleteProductos(id);
+            redirectAttributes.addFlashAttribute("exito", "Producto eliminado");
             return "redirect:/producto";
+
         }
 
         @GetMapping("/buscar")
-        public String buscar(@RequestParam Integer id, Model model, RedirectAttributes ra) {
-            try {
+        public String buscar(@RequestParam Integer id, Model model) {
                 Productos encontrado = productosService.getProductosById(id);
                 model.addAttribute("productos", productosService.getAListProductos());
                 model.addAttribute("productoForm", encontrado);
                 return "producto";
-            } catch (Exception e) {
-                ra.addFlashAttribute("msg", "Producto con ese id no existe");
-                return "redirect:/producto";
-            }
         }
 
         @PostMapping("/actualizar/{id}")
-        public String actualizar(@PathVariable Integer id, @Valid @ModelAttribute("productoForm") Productos p, BindingResult result, Model model, RedirectAttributes ra) {
+        public String actualizar(@PathVariable Integer id, @Valid @ModelAttribute("productoForm") Productos p, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
             if (result.hasErrors()) {
                 model.addAttribute("productos", productosService.getAListProductos());
-                model.addAttribute("producto", p);
                 return "producto";
             }
-            try {
-                productosService.updateProductos(id, p);
-                ra.addFlashAttribute("exito", "Producto actualizado correctamente.");
-            } catch (Exception e) {
-                ra.addFlashAttribute("error", " Error al actualizar: " + e.getMessage());
-            }
+            productosService.updateProductos(id, p);
+            redirectAttributes.addFlashAttribute("exito", "Producto actualizado correctamente.");
             return "redirect:/producto";
         }
     }
