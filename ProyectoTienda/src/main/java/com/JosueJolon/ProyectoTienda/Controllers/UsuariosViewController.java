@@ -33,47 +33,30 @@ public class UsuariosViewController {
             model.addAttribute("usuario", usuariosService.getAListUsuarios());
             return "usuario";
         }
-        try {
-            usuariosService.saveUsuarios(usuarios);
-            redirectAttributes.addFlashAttribute("excito", "el usuario fue creado correctamente");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "el usuario no pudo ser creado");
-        }
+        usuariosService.saveUsuarios(usuarios);
+        redirectAttributes.addFlashAttribute("exito", "el usuario fue creado correctamente");
         return "redirect:/usuario";
     }
 
     @GetMapping("/editarUsuario/{id}")
-    public String editarUsuario(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
-            model.addAttribute("usuario", usuariosService.getAListUsuarios());
-            model.addAttribute("usuarioFormu", usuariosService.getUsuariosById(id));
-            return "usuario";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("advertencia", "el id del usurio no existe");
-            return "usuario";
-        }
+    public String editarUsuario(@PathVariable Integer id, Model model){
+        model.addAttribute("usuario", usuariosService.getAListUsuarios());
+        model.addAttribute("usuarioFormu", usuariosService.getUsuariosById(id));
+        return "usuario";
     }
 
     @PostMapping("/eliminarUsuario/{id}")
     public String eliminarUsuario(@PathVariable Integer id, RedirectAttributes redirectAttributes){
-        try {
-            usuariosService.deleteUsuarios(id);
-            redirectAttributes.addFlashAttribute("ecxito", "el usuario fue eliminado");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "no se pudo eliminar el usuario");
-        }
+        usuariosService.deleteUsuarios(id);
+        redirectAttributes.addFlashAttribute("exito", "el usuario fue eliminado");
         return "redirect:/usuario";
     }
 
     @GetMapping("/buscarUsuario")
     public String buscarUsuario(@RequestParam Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
-            Usuarios usuarios = usuariosService.getUsuariosById(id);
-            model.addAttribute("usuario", usuariosService.getAListUsuarios());
-            model.addAttribute("usuarioFormu", usuarios);
-        }catch (Exception e) {
-            redirectAttributes.addFlashAttribute("msg", "Producto con ese id no existe");
-        }
+        Usuarios usuarios = usuariosService.getUsuariosById(id);
+        model.addAttribute("usuario", usuariosService.getAListUsuarios());
+        model.addAttribute("usuarioFormu", usuarios);
         return "redirect:/producto";
     }
 
@@ -81,15 +64,10 @@ public class UsuariosViewController {
     public String actualizarUsuario(@PathVariable Integer id, @Valid @ModelAttribute ("usuarioFormu") Usuarios usuarios, Model model, RedirectAttributes redirectAttributes, BindingResult result){
         if(result.hasErrors()){
             model.addAttribute("usuarios", usuariosService.getAListUsuarios());
-            model.addAttribute("usuario", usuarios );
             return "usuario";
         }
-        try {
-            usuariosService.updateUsuarios(id, usuarios);
-            redirectAttributes.addFlashAttribute("exito", "el usuario fue actualizado");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "no se pudo actualizar el usuario");
-        }
+        usuariosService.updateUsuarios(id, usuarios);
+        redirectAttributes.addFlashAttribute("exito", "el usuario fue actualizado");
         return "redirect:/usuario";
     }
 
