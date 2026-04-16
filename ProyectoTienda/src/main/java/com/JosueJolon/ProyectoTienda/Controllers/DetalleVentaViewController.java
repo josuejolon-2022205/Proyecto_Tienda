@@ -33,64 +33,41 @@ public class DetalleVentaViewController {
             model.addAttribute("detallesVenta ", detallesVentaService.getAListDetallesVenta());
             return "detalleVenta";
         }
-        try {
-            detallesVentaService.saveDetallesVenta(detallesVenta);
-            redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue creado");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "no se creo el detalle de la venta");
-        }
+        detallesVentaService.saveDetallesVenta(detallesVenta);
+        redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue creado");
         return "redirect:/detalleVenta";
     }
 
     @GetMapping("/editarDetalleVenta/{id}")
-    public String seleccionEdit(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
-        try {
-            model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
-            model.addAttribute("detallesVentaFormu", detallesVentaService.getDetallesVentaById(id));
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("advertencia", "el id del detalle de la venta no fue encontrado");
-        }
+    public String seleccionEdit(@PathVariable Integer id, Model model) {
+        model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
+        model.addAttribute("detallesVentaFormu", detallesVentaService.getDetallesVentaById(id));
         return "detalleVenta";
     }
 
     @PostMapping("/eliminarDetalleVenta/{id}")
     public String guardarDetalle(@PathVariable Integer id, RedirectAttributes redirectAttributes ){
-        try {
-            detallesVentaService.deleteDetallesVenta(id);
-            redirectAttributes.addFlashAttribute("info", "el detalle de la venta fue eliminado");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("advertencia", "el id del detalle de la venta no existe");
-
-        }
+        detallesVentaService.deleteDetallesVenta(id);
+        redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue eliminado");
         return "redirect:/detalleVenta";
     }
 
     @GetMapping("/buscarDetalleVenta")
-    public String buscarDetalle(@RequestParam Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
+    public String buscarDetalle(@RequestParam Integer id, Model model){
             DetallesVenta detallesVenta = detallesVentaService.getDetallesVentaById(id);
             model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
             model.addAttribute("detallesVentaFormu", detallesVenta);
             return "detalleVenta";
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("advertencia", "el id del detalle de la venta no existe");
-            return "redirect:/detalleVenta";
-        }
     }
 
     @PostMapping("/actualizarDetalleVenta/{id}")
     public String actualizarDetalle(@PathVariable Integer id, @Valid @ModelAttribute ("detallesVentaFormu") DetallesVenta detallesVenta, Model model, RedirectAttributes redirectAttributes, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
-            model.addAttribute("detalleVenta", detallesVenta);
             return "detalleVenta";
         }
-        try {
-            detallesVentaService.updateDetallesVenta(id, detallesVenta);
-            redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue actualizado");
-        } catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "no se pudo actualizar el detalle de la venta");
-        }
+        detallesVentaService.updateDetallesVenta(id, detallesVenta);
+        redirectAttributes.addFlashAttribute("exito", "el detalle de la venta fue actualizado");
         return "redirect:/detalleVenta";
 
     }
