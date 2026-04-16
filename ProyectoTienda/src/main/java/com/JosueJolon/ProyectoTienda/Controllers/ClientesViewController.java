@@ -26,70 +26,46 @@ public class ClientesViewController {
     }
 
     @GetMapping("/editarCliente/{id}")
-    public String guardar(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
-        try{
+    public String guardar(@PathVariable Integer id, Model model){
             model.addAttribute("clientes", clientesService.getAListClientes());
             model.addAttribute("clienteFormu", clientesService.getClientesById(id));
             return "clientes";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "no se encontro el id del cliente");
-            return "clientes";
-        }
     }
 
     @PostMapping("/guardarCliente")
     public String guardarClientes(@Valid @ModelAttribute ("clientesFormu") Clientes clientes, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
-            model.addAttribute("cliente", clientesService.getAListClientes());
+            model.addAttribute("clientes", clientesService.getAListClientes());
             return "clientes";
         }
-
-        try {
-            clientesService.saveClientes(clientes);
-            redirectAttributes.addFlashAttribute("exito", "el cliente fue creado");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "error al crear el cliente");
-        }
+        clientesService.saveClientes(clientes);
+        redirectAttributes.addFlashAttribute("exito", "el cliente fue creado");
         return "redirect:/clientes";
     }
 
     @GetMapping("/buscarCliente")
-    public String buscarCliente(@RequestParam Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
+    public String buscarCliente(@RequestParam Integer id, Model model){
             Clientes clientes = clientesService.getClientesById(id);
-            model.addAttribute("cliente", clientesService.getAListClientes());
+            model.addAttribute("clientes", clientesService.getAListClientes());
             model.addAttribute("clienteFormu", clientes);
             return "clientes";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("advertencia", "el id del cliente no existe");
-            return "redirect:/cliente";
-        }
     }
 
     @PostMapping("/actualizarClientes/{id}")
     public String actualizarCliente(@PathVariable Integer id, @Valid @ModelAttribute ("clientesFormu") Clientes clientes, Model model, RedirectAttributes redirectAttributes, BindingResult result){
        if (result.hasErrors()) {
            model.addAttribute("cliente", clientesService.getAListClientes());
-           model.addAttribute("cliente", clientes);
-           return "cliente";
+           return "clientes";
        }
-       try {
-           clientesService.updateClientes(id, clientes);
-           redirectAttributes.addFlashAttribute("ecito", "el cliente se ha actualizado");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "el cliente no se pudo actualizar");
-        }
-        return "cliente";
+       clientesService.updateClientes(id, clientes);
+       redirectAttributes.addFlashAttribute("ecito", "el cliente se ha actualizado");
+        return "redirect:/clientes";
     }
 
     @PostMapping("/eliminarClientes/{id}")
     public String eliminarCliente(@PathVariable Integer id, RedirectAttributes redirectAttributes){
-        try {
-            clientesService.deleteClientes(id);
-            redirectAttributes.addFlashAttribute("exito", "el cliente se ha eliminado correctamente");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "el id del cliente no existe");
-        }
-        return "redirect:/cliente";
+        clientesService.deleteClientes(id);
+        redirectAttributes.addFlashAttribute("exito", "el cliente se ha eliminado correctamente");
+        return "redirect:/clientes";
     }
 }
