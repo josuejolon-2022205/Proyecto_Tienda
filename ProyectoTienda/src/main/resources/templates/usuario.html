@@ -32,10 +32,9 @@
   </div>
 
   <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
-  <div class="msg-error" th:if="${error}" th:text="${error}"></div>
 
   <form th:action="@{/usuario/buscarUsuario}" method="get" class="buscar-bar">
-    <input type="number" name="id" placeholder="Buscar por ID..." min="1">
+    <input type="number" name="id" placeholder="Buscar por ID" min="1">
     <button type="submit" class="btn buscar">Buscar</button>
     <a th:href="@{/usuario}" class="btn limpiar">Limpiar</a>
   </form>

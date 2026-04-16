@@ -33,8 +33,6 @@
     </div>
 
     <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
-    <div class="msg-error" th:if="${error}" th:text="${error}"></div>
-    <div class="msg-error" th:if="${advertencia}" th:text="${advertencia}"></div>
 
     <form th:action="@{/ventas/buscarVenta}" method="get" class="buscar-bar">
         <input type="number" name="id" placeholder="Buscar por ID..." min="1">

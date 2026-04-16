@@ -14,8 +14,6 @@
     <h2>Crear Cuenta</h2>
     <p class="subtitulo">Completa los datos para registrarte</p>
 
-    <div class="msg-error" th:if="${error}" th:text="${error}"></div>
-
     <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
 
     <form th:action="@{/registro}" method="post">
