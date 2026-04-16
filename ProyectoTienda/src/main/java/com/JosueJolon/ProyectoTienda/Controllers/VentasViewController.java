@@ -12,84 +12,60 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/ventas")
 public class VentasViewController {
-   private final VentasService ventasService;
+    private final VentasService ventasService;
 
     public VentasViewController(VentasService ventasService) {
         this.ventasService = ventasService;
     }
 
     @GetMapping
-    public String listar(Model model){
+    public String listar(Model model) {
         model.addAttribute("ventas", ventasService.getAListVentas());
         model.addAttribute("ventaFormu", new Ventas());
         return "ventas";
     }
 
     @PostMapping("/guardarVenta")
-    public String guardarVenta(@Valid @ModelAttribute ("ventaFormu") Ventas ventas, Model model, RedirectAttributes redirectAttributes, BindingResult result){
-        if(result.hasErrors()){
+    public String guardarVenta(@Valid @ModelAttribute("ventaFormu") Ventas ventas, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             model.addAttribute("ventas", ventasService.getAListVentas());
             return "ventas";
         }
-        try {
-            ventasService.saveVentas(ventas);
-            redirectAttributes.addFlashAttribute("exito", "la venta fue creada");
-        } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", "error al crear la venta");
-        }
+        ventasService.saveVentas(ventas);
+        redirectAttributes.addFlashAttribute("exito", "la venta fue creada");
         return "redirect:/ventas";
     }
 
     @GetMapping("/editarVenta/{id}")
-    public String editarVenta(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
-            model.addAttribute("ventas", ventasService.getAListVentas());
-            model.addAttribute("ventasFormu", ventasService.getVentasById(id));
-            return "ventas";
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("advertencia", "la venta no fue encontrada");
-            return "ventas";
-        }
+    public String editarVenta(@PathVariable Integer id, Model model) {
+        model.addAttribute("ventas", ventasService.getAListVentas());
+        model.addAttribute("ventaFormu", ventasService.getVentasById(id));
+        return "ventas";
     }
 
     @PostMapping("/eliminarVenta/{id}")
-    public String eliminarVenta(@PathVariable Integer id, RedirectAttributes redirectAttributes){
-        try {
-            ventasService.deleteVentas(id);
-            redirectAttributes.addFlashAttribute("exito", "la venta fue eliminada");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "error al eliminar la venta");
-        }
+    public String eliminarVenta(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        ventasService.deleteVentas(id);
+        redirectAttributes.addFlashAttribute("exito", "la venta fue eliminada");
         return "redirect:/ventas";
     }
 
     @GetMapping("/buscarVenta")
-    public String buscarVenta (@RequestParam Integer id, Model model, RedirectAttributes redirectAttributes){
-        try {
-            Ventas ventas = ventasService.getVentasById(id);
-            model.addAttribute("ventas", ventasService.getAListVentas());
-            model.addAttribute("ventasFormu", ventas);
-            return "ventas";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("advertencia", "la venta con ese id no existe");
-            return "";
-        }
+    public String buscarVenta(@RequestParam Integer id, Model model) {
+        Ventas ventas = ventasService.getVentasById(id);
+        model.addAttribute("ventas", ventasService.getAListVentas());
+        model.addAttribute("ventaFormu", ventas);
+        return "ventas";
     }
 
     @PostMapping("/actualizarVentas/{id}")
-    public String actualizarVenta(@PathVariable Integer id, @Valid @ModelAttribute("ventasFormu") Ventas ventas, BindingResult result, RedirectAttributes redirectAttributes, Model model){
-        if(result.hasErrors()){
+    public String actualizarVenta(@PathVariable Integer id, @Valid @ModelAttribute("ventaFormu") Ventas ventas, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             model.addAttribute("ventas", ventasService.getAListVentas());
-            model.addAttribute("venta", ventas);
-            return "venta";
+            return "ventas";
         }
-        try {
-            ventasService.updateVentas(id, ventas);
-            redirectAttributes.addFlashAttribute("exito", "venta actualizada correctamente");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "error al actualizar la venta");
-        }
+        ventasService.updateVentas(id, ventas);
+        redirectAttributes.addFlashAttribute("exito", "venta actualizada correctamente");
         return "redirect:/ventas";
     }
 }
-
