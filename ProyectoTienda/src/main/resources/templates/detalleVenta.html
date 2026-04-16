@@ -13,8 +13,8 @@
 
     <div class="nav-links">
         <a th:href="@{/producto}">Productos</a>
-        <a th:href="@{/cliente}">Clientes</a>
-        <a th:href="@{/venta}">Ventas</a>
+        <a th:href="@{/clientes}">Clientes</a>
+        <a th:href="@{/ventas}">Ventas</a>
         <a th:href="@{/detalleVenta}" class="active">Detalle Venta</a>
         <a th:href="@{/usuario}">Usuarios</a>
     </div>
@@ -33,8 +33,6 @@
     </div>
 
     <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
-    <div class="msg-error" th:if="${error}" th:text="${error}"></div>
-    <div class="msg-error" th:if="${advertencia}" th:text="${advertencia}"></div>
 
     <form th:action="@{/detalleVenta/buscarDetalleVenta}" method="get" class="buscar-bar">
         <input type="number" name="id" placeholder="Buscar por ID..." min="1">
