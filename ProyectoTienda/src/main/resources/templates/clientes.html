@@ -16,7 +16,7 @@
     <a th:href="@{/clientes}" class="active">Clientes</a>
     <a th:href="@{/ventas}">Ventas</a>
     <a th:href="@{/detalleVenta}">Detalle Venta</a>
-    <a th:href="@{/usuarios}">Usuarios</a>
+    <a th:if="${session.usuarioRol == 'Administrador'}" th:href="@{/usuarios}">Usuarios</a>
   </div>
 
   <div class="nav-user">
@@ -41,7 +41,7 @@
   </form>
 
 
-  <div th:with="editando=${clienteFormu.dpi_cliente != null}">
+  <div th:if="${session.usuarioRol == 'Administrador'}" th:with="editando=${clienteFormu.dpi_cliente != null}">
 
     <span class="modo-badge modo-editar" th:if="${editando}">
       Modo Edición — Cliente ID:
@@ -117,7 +117,7 @@
         <th>Apellido</th>
         <th>Dirección</th>
         <th>Estado</th>
-        <th>Acciones</th>
+        <th th:if="${session.usuarioRol == 'Administrador'}"> Acciones</th>
       </tr>
       </thead>
       <tbody>
@@ -131,7 +131,8 @@
           <span class="badge badge-active"   th:if="${cliente.estado == 1}">Activo</span>
           <span class="badge badge-inactive" th:unless="${cliente.estado == 1}">Inactivo</span>
         </td>
-        <td>
+
+        <td th:if="${session.usuarioRol == 'Administrador'}" >
           <a th:href="@{/clientes/editarCliente/{id}(id=${cliente.dpi_cliente})}"
              class="btn-sm editar">Editar</a>
 
