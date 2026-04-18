@@ -28,7 +28,7 @@ public class UsuariosViewController {
     }
 
     @PostMapping("/guardarUsuarios")
-    public String guardarUsario(@Valid @ModelAttribute("usuarioFormu") Usuarios usuarios, Model model, RedirectAttributes redirectAttributes, BindingResult result){
+    public String guardarUsario(@Valid @ModelAttribute("usuarioFormu") Usuarios usuarios, BindingResult result, Model model, RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
             model.addAttribute("usuario", usuariosService.getAListUsuarios());
             return "usuario";
@@ -63,7 +63,7 @@ public class UsuariosViewController {
     @PostMapping("/actualizarUsuario/{id}")
     public String actualizarUsuario(@PathVariable Integer id, @Valid @ModelAttribute ("usuarioFormu") Usuarios usuarios, Model model, RedirectAttributes redirectAttributes, BindingResult result){
         if(result.hasErrors()){
-            model.addAttribute("usuarios", usuariosService.getAListUsuarios());
+            model.addAttribute("usuario", usuariosService.getAListUsuarios());
             return "usuario";
         }
         usuariosService.updateUsuarios(id, usuarios);
