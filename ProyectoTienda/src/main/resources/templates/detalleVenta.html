@@ -57,7 +57,7 @@
               method="post"
               th:object="${detallesVentaFormu}">
 
-            <div class="form-card">
+            <div th:if="${session.usuarioRol != 'Administrador' and detalleVentaFormu.codigo_detalle_venta != null}"  class="form-card">
                 <div class="form-grid">
 
                     <div class="form-group">
