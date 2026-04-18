@@ -26,141 +26,149 @@
 </nav>
 
 <main>
-  <div class="page-header">
-    <h1>Gestión de Usuarios</h1>
-    <p>Administra las cuentas, roles y permisos de acceso al sistema</p>
+
+  <div th:if="${session.usuarioRol != 'Administrador'}" class="page-header">
+    <h2>
+      Acceso denegado
+    </h2>
+    <p>
+      no tienes permisos para ver esta seccion
+    </p>
+    <a th:href="@{/home}" class="btn limpiar" style="margin-top: 16px; display:inline-block;">Haga click para volver al inicio</a>
   </div>
 
-  <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
 
-  <form th:action="@{/usuario/buscarUsuario}" method="get" class="buscar-bar">
-    <input type="number" name="id" placeholder="Buscar por ID" min="1">
-    <button type="submit" class="btn buscar">Buscar</button>
-    <a th:href="@{/usuario}" class="btn limpiar">Limpiar</a>
-  </form>
+  <div th:id="${session.usuarioRol == 'Administrador'}">
+    <div class="page-header">
+      <h1>Gestión de Usuarios</h1>
+      <p>Administra las cuentas, roles y permisos de acceso al sistema</p>
+    </div>
 
-  <div th:with="editando=${usuarioFormu.codigo_usuario != null}">
+    <div class="msg-exito" th:if="${exito}" th:text="${exito}"></div>
 
-    <span class="modo-badge modo-editar" th:if="${editando}">
-       Modo Edición — Usuario ID:
-      <span th:text="${usuarioFormu.codigo_usuario}"></span>
-    </span>
-    <span class="modo-badge modo-crear" th:unless="${editando}">
-      Modo Creación
-    </span>
-
-    <form th:action="${editando}
-                      ? @{/usuario/actualizarUsuario/{id}(id=${usuarioFormu.codigo_usuario})}
-                      : @{/usuario/guardarUsuarios}"
-          method="post"
-          th:object="${usuarioFormu}">
-
-      <div class="form-card">
-        <div class="form-grid">
-
-          <div class="form-group">
-            <label>Código Usuario</label>
-            <input th:field="*{codigo_usuario}" type="text"
-                   placeholder="Autoincrementado" readonly>
-          </div>
-
-          <div class="form-group">
-            <label>Username</label>
-            <input th:field="*{username}" type="text"
-                   placeholder="Ej. vendedor01">
-            <span class="field-error" th:errors="*{username}"></span>
-          </div>
-
-          <div class="form-group">
-            <label>Contraseña</label>
-            <input th:field="*{password}" type="password"
-                   placeholder="••••••••">
-            <span class="field-error" th:errors="*{password}"></span>
-          </div>
-
-          <div class="form-group">
-            <label>Email</label>
-            <input th:field="*{email}" type="email"
-                   placeholder="Ej. usuario@tienda.com">
-            <span class="field-error" th:errors="*{email}"></span>
-          </div>
-
-          <div class="form-group">
-            <label>Rol</label>
-            <select th:field="*{rol}">
-              <option value="">-- Seleccionar --</option>
-              <option value="Administrador">Administrador</option>
-              <option value="Vendedor">Vendedor</option>
-              <option value="Cajero">Cajero</option>
-              <option value="Supervisor">Supervisor</option>
-              <option value="Bodeguero">Bodeguero</option>
-              <option value="Gerente">Gerente</option>
-              <option value="Soporte">Soporte</option>
-            </select>
-            <span class="field-error" th:errors="*{rol}"></span>
-          </div>
-
-          <div class="form-group">
-            <label>Estado</label>
-            <select th:field="*{estado}">
-              <option value="1">Activo</option>
-              <option value="0">Inactivo</option>
-            </select>
-            <span class="field-error" th:errors="*{estado}"></span>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="acciones">
-        <button type="submit" class="btn agregar" th:unless="${editando}">Agregar</button>
-        <button type="submit" class="btn editar"  th:if="${editando}">Guardar Cambios</button>
-        <a th:href="@{/usuario}" class="btn limpiar">Limpiar / Cancelar</a>
-      </div>
-
+    <form th:action="@{/usuario/buscarUsuario}" method="get" class="buscar-bar">
+      <input type="number" name="id" placeholder="Buscar por ID" min="1">
+      <button type="submit" class="btn buscar">Buscar</button>
+      <a th:href="@{/usuario}" class="btn limpiar">Limpiar</a>
     </form>
+
+    <div th:with="editando=${usuarioFormu.codigo_usuario != null}">
+
+      <span class="modo-badge modo-editar" th:if="${editando}">
+        Modo Edición — Usuario ID:
+        <span th:text="${usuarioFormu.codigo_usuario}"></span>
+      </span>
+      <span class="modo-badge modo-crear" th:unless="${editando}">
+        Modo Creación
+      </span>
+
+      <form th:action="${editando}
+                        ? @{/usuario/actualizarUsuario/{id}(id=${usuarioFormu.codigo_usuario})}
+                        : @{/usuario/guardarUsuarios}"
+            method="post"
+            th:object="${usuarioFormu}">
+
+        <div class="form-card">
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Código Usuario</label>
+              <input th:field="*{codigo_usuario}" type="text"
+                    placeholder="Autoincrementado" readonly>
+            </div>
+
+            <div class="form-group">
+              <label>Username</label>
+              <input th:field="*{username}" type="text"
+                    placeholder="Ej. vendedor01">
+              <span class="field-error" th:errors="*{username}"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Contraseña</label>
+              <input th:field="*{password}" type="password"
+                    placeholder="••••••••">
+              <span class="field-error" th:errors="*{password}"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input th:field="*{email}" type="email"
+                    placeholder="Ej. usuario@tienda.com">
+              <span class="field-error" th:errors="*{email}"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Rol</label>
+              <select th:field="*{rol}">
+                <option value="">-- Seleccionar --</option>
+                <option value="Administrador">Administrador</option>
+                <option value="usuario">Usuario</option>
+              </select>
+              <span class="field-error" th:errors="*{rol}"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Estado</label>
+              <select th:field="*{estado}">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+              <span class="field-error" th:errors="*{estado}"></span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn agregar" th:unless="${editando}">Agregar</button>
+          <button type="submit" class="btn editar"  th:if="${editando}">Guardar Cambios</button>
+          <a th:href="@{/usuario}" class="btn limpiar">Limpiar / Cancelar</a>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="usuario : ${usuario}">
+          <td th:text="${usuario.codigo_usuario}"></td>
+          <td th:text="${usuario.username}"></td>
+          <td th:text="${usuario.email}"></td>
+          <td th:text="${usuario.rol}"></td>
+          <td>
+            <span class="badge badge-active"   th:if="${usuario.estado == 1}">Activo</span>
+            <span class="badge badge-inactive" th:unless="${usuario.estado == 1}">Inactivo</span>
+          </td>
+          <td>
+            <a th:href="@{/usuario/editarUsuario/{id}(id=${usuario.codigo_usuario})}"
+              class="btn-sm editar">Editar</a>
+
+            <form th:action="@{/usuario/eliminarUsuario/{id}(id=${usuario.codigo_usuario})}"
+                  method="post"
+                  style="display:inline;"
+                  onsubmit="return confirm('¿Seguro que quieres eliminar este usuario?')">
+              <button type="submit" class="btn-sm eliminar">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="table-wrapper">
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-
-      <tr th:each="usuario : ${usuario}">
-        <td th:text="${usuario.codigo_usuario}"></td>
-        <td th:text="${usuario.username}"></td>
-        <td th:text="${usuario.email}"></td>
-        <td th:text="${usuario.rol}"></td>
-        <td>
-          <span class="badge badge-active"   th:if="${usuario.estado == 1}">Activo</span>
-          <span class="badge badge-inactive" th:unless="${usuario.estado == 1}">Inactivo</span>
-        </td>
-        <td>
-          <a th:href="@{/usuario/editarUsuario/{id}(id=${usuario.codigo_usuario})}"
-             class="btn-sm editar">Editar</a>
-
-          <form th:action="@{/usuario/eliminarUsuario/{id}(id=${usuario.codigo_usuario})}"
-                method="post"
-                style="display:inline;"
-                onsubmit="return confirm('¿Seguro que quieres eliminar este usuario?')">
-            <button type="submit" class="btn-sm eliminar">Eliminar</button>
-          </form>
-        </td>
-      </tr>
-
-      </tbody>
-    </table>
-  </div>
-
 </main>
 
 <footer>
