@@ -39,4 +39,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> validarId(IllegalArgumentException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("Error", "el id no se encontró en la peticion"));
     }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> validarNull(NullPointerException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("Error:", "No se encontro el id o recurso"));
+    }
 }
