@@ -77,14 +77,14 @@
           <div class="form-group">
             <label>Precio (Q)</label>
             <input th:field="*{precio}" type="number"
-                   placeholder="Ej. 4500.00" step="0.01" min="0">
+                   placeholder="Ej. 4500.00" step="0.01">
             <span class="field-error" th:errors="*{precio}"></span>
           </div>
 
           <div class="form-group">
             <label>Stock</label>
             <input th:field="*{stock}" type="number"
-                   placeholder="Ej. 20" min="0">
+                   placeholder="Ej. 20">
             <span class="field-error" th:errors="*{stock}"></span>
           </div>
 
