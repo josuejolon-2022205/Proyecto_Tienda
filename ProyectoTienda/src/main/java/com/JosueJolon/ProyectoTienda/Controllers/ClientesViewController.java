@@ -33,7 +33,7 @@ public class ClientesViewController {
     }
 
     @PostMapping("/guardarCliente")
-    public String guardarClientes(@Valid @ModelAttribute ("clientesFormu") Clientes clientes, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+    public String guardarClientes(@Valid @ModelAttribute ("clienteFormu") Clientes clientes, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
             model.addAttribute("clientes", clientesService.getAListClientes());
             return "clientes";
@@ -52,13 +52,13 @@ public class ClientesViewController {
     }
 
     @PostMapping("/actualizarClientes/{id}")
-    public String actualizarCliente(@PathVariable Integer id, @Valid @ModelAttribute ("clientesFormu") Clientes clientes, Model model, RedirectAttributes redirectAttributes, BindingResult result){
+    public String actualizarCliente(@PathVariable Integer id, @Valid @ModelAttribute ("clienteFormu") Clientes clientes, Model model, RedirectAttributes redirectAttributes, BindingResult result){
        if (result.hasErrors()) {
-           model.addAttribute("cliente", clientesService.getAListClientes());
+           model.addAttribute("clientes", clientesService.getAListClientes());
            return "clientes";
        }
        clientesService.updateClientes(id, clientes);
-       redirectAttributes.addFlashAttribute("ecito", "el cliente se ha actualizado");
+       redirectAttributes.addFlashAttribute("exito", "el cliente se ha actualizado");
         return "redirect:/clientes";
     }
 
