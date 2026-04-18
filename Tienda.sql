@@ -71,15 +71,15 @@ end $$
 delimiter ;
 
 call sp_AgregarUsuario('admin01',     'Admin@2024',   'admin01@tienda.com',       'Administrador', 1);
-call sp_AgregarUsuario('vendedor01',  'Vend@1234',    'vendedor01@tienda.com',    'Vendedor',      1);
-call sp_AgregarUsuario('vendedor02',  'Vend@5678',    'vendedor02@tienda.com',    'Vendedor',      1);
-call sp_AgregarUsuario('cajero01',    'Caj@1111',     'cajero01@tienda.com',      'Cajero',        1);
-call sp_AgregarUsuario('cajero02',    'Caj@2222',     'cajero02@tienda.com',      'Cajero',        1);
+call sp_AgregarUsuario('vendedor01',  'Vend@1234',    'vendedor01@tienda.com',    'usuario',      1);
+call sp_AgregarUsuario('vendedor02',  'Vend@5678',    'vendedor02@tienda.com',    'usuario',      1);
+call sp_AgregarUsuario('cajero01',    'Caj@1111',     'cajero01@tienda.com',      'Administrador',        1);
+call sp_AgregarUsuario('cajero02',    'Caj@2222',     'cajero02@tienda.com',      'usuario',        1);
 call sp_AgregarUsuario('supervisor1', 'Sup@3333',     'supervisor1@tienda.com',   'Supervisor',    1);
-call sp_AgregarUsuario('bodeguero01', 'Bod@4444',     'bodeguero01@tienda.com',   'Bodeguero',     1);
-call sp_AgregarUsuario('gerente01',   'Ger@5555',     'gerente01@tienda.com',     'Gerente',       1);
-call sp_AgregarUsuario('vendedor03',  'Vend@9999',    'vendedor03@tienda.com',    'Vendedor',      0);
-call sp_AgregarUsuario('soporte01',   'Sop@7777',     'soporte01@tienda.com',     'Soporte',       1);
+call sp_AgregarUsuario('bodeguero01', 'Bod@4444',     'bodeguero01@tienda.com',   'Administrador',     1);
+call sp_AgregarUsuario('gerente01',   'Ger@5555',     'gerente01@tienda.com',     'usuario',       1);
+call sp_AgregarUsuario('vendedor03',  'Vend@9999',    'vendedor03@tienda.com',    'Administrador',      0);
+call sp_AgregarUsuario('soporte01',   'Sop@7777',     'soporte01@tienda.com',     'Administrador',       1);
 
 
 delimiter $$
@@ -353,4 +353,3 @@ begin
 
 end $$
 delimiter ;
-
