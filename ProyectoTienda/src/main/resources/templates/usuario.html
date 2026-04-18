@@ -38,7 +38,7 @@
   </div>
 
 
-  <div th:id="${session.usuarioRol == 'Administrador'}">
+  <div th:if="${session.usuarioRol == 'Administrador'}">
     <div class="page-header">
       <h1>Gestión de Usuarios</h1>
       <p>Administra las cuentas, roles y permisos de acceso al sistema</p>
