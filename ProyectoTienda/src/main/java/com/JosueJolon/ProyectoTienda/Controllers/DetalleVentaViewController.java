@@ -30,7 +30,7 @@ public class DetalleVentaViewController {
     @PostMapping("/guardarDetalleVenta")
     public String guardarDetalle(@Valid @ModelAttribute ("detallesVentaFormu")DetallesVenta detallesVenta, BindingResult result, Model model, RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
-            model.addAttribute("detallesVenta ", detallesVentaService.getAListDetallesVenta());
+            model.addAttribute("detallesVenta", detallesVentaService.getAListDetallesVenta());
             return "detalleVenta";
         }
         detallesVentaService.saveDetallesVenta(detallesVenta);
