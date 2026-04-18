@@ -40,6 +40,38 @@
     <a th:href="@{/clientes}" class="btn limpiar">Limpiar</a>
   </form>
 
+  <div th:if="${session.usuarioRol != 'Administrador' and clienteFormu.dpi_cliente != null}"
+       class="form-card">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>ID / DPI</label>
+        <input type="text" th:value="${clienteFormu.dpi_cliente}" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" th:value="${clienteFormu.nombre_cliente}" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" th:value="${clienteFormu.apellido_cliente}" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" th:value="${clienteFormu.direccion}" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <input type="text" th:value="${clienteFormu.estado == 1 ? 'Activo' : 'Inactivo'}" readonly>
+      </div>
+
+    </div>
+  </div>
+
 
   <div th:if="${session.usuarioRol == 'Administrador'}" th:with="editando=${clienteFormu.dpi_cliente != null}">
 
@@ -56,9 +88,6 @@
                       : @{/clientes/guardarCliente}"
           method="post"
           th:object="${clienteFormu}">
-
-      <div th:if="${session.usuarioRol != 'Administrador' and clienteFormu.dpi_cliente != null}"  class="form-card">
-        <div class="form-grid">
 
           <div class="form-group">
             <label>ID / DPI</label>
