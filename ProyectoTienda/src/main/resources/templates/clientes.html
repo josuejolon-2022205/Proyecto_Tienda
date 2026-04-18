@@ -57,7 +57,7 @@
           method="post"
           th:object="${clienteFormu}">
 
-      <div class="form-card">
+      <div th:if="${session.usuarioRol != 'Administrador' and clienteFormu.dpi_cliente != null}"  class="form-card">
         <div class="form-grid">
 
           <div class="form-group">
