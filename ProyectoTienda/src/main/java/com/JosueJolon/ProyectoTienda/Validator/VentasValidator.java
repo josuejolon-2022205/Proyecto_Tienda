@@ -30,6 +30,10 @@ public class VentasValidator {
             }
         }
 
+        if(clientes == null){
+            throw new Exceptions("el dpi del cliente no existe");
+        }
+
         Usuarios usuarios = null;
         List<Usuarios> usuariosList = usuariosRepository.findAll();
         for (Usuarios usuarios1 : usuariosList){
@@ -47,12 +51,5 @@ public class VentasValidator {
             throw new Exceptions("el usuario esta inactivo");
         }
     }
-
-
-
-
-
-
-
 
 }
