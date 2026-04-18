@@ -28,12 +28,8 @@
 <main>
 
   <div th:if="${session.usuarioRol != 'Administrador'}" class="page-header">
-    <h2>
-      Acceso denegado
-    </h2>
-    <p>
-      no tienes permisos para ver esta seccion
-    </p>
+    <h2>Acceso denegado</h2>
+    <p>No tienes permisos para ver esta seccion</p>
     <a th:href="@{/home}" class="btn limpiar" style="margin-top: 16px; display:inline-block;">Haga click para volver al inicio</a>
   </div>
 
